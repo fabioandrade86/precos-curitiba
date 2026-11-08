@@ -1,0 +1,581 @@
+{
+ "Alameda Doutor Carlos de Carvalho 2050 - Bigorrilho - Curitiba/PR": {
+  "lat": -25.43862,
+  "lon": -49.29527,
+  "ok": true,
+  "osm": "Mercado Angeloni, 2050, Alameda Doutor Carlos de Carvalho, Bigorrilho, Curitiba, Paraná, Região Sul, 80730-420, Brasil"
+ },
+ "Alameda Nossa Senhora do Sagrado Coração, 290 - Pinheirinho - Curitiba/PR": {
+  "ok": false
+ },
+ "Av. Juscelino Kubitschek de Oliveira, 2511 - Cidade Industrial De Curitiba - Curitiba/PR": {
+  "lat": -25.45449,
+  "lon": -49.35968,
+  "ok": true,
+  "osm": "Assaí Atacadista, 2511, Avenida Juscelino Kubitschek de Oliveira (Marginal Leste), Cidade Industrial de Curitiba, Curiti"
+ },
+ "Av. Manoel Ribas, 7451 - Santa Felicidade - Curitiba/PR": {
+  "lat": -25.3988,
+  "lon": -49.34168,
+  "ok": true,
+  "osm": "7451, Avenida Manoel Ribas, Santa Felicidade, Curitiba, Paraná, Região Sul, 82400-150, Brasil"
+ },
+ "Av. Presidente Wenceslau Braz, n° 1046 - Curitiba/PR": {
+  "lat": -25.47248,
+  "lon": -49.26562,
+  "ok": true,
+  "osm": "1046, Avenida Presidente Wenceslau Braz, Guaíra, Curitiba, Paraná, Região Sul, 80630-280, Brasil"
+ },
+ "Av. Rep. Argentina, 900 - Curitiba/PR": {
+  "lat": -25.45437,
+  "lon": -49.28875,
+  "ok": true,
+  "osm": "Supercenter Angeloni Água Verde, 900, Avenida República Argentina, Vila Izabel, Curitiba, Paraná, Região Sul, 80620-010,"
+ },
+ "Avenida Alcir Martins Bastos 483 - Fazendinha - Curitiba/PR": {
+  "lat": -25.48643,
+  "lon": -49.32514,
+  "ok": true,
+  "osm": "Supermercado Kusma Express, 483, Avenida Alcir Martins Bastos, Fazendinha, Curitiba, Paraná, Região Sul, 81330-400, Bras"
+ },
+ "Avenida Anita Garibaldi, 4654 - Curitiba/PR": {
+  "lat": -25.37266,
+  "lon": -49.26261,
+  "ok": true,
+  "osm": "4654, Avenida Anita Garibaldi, Barreirinha, Curitiba, Paraná, Região Sul, 82700-110, Brasil"
+ },
+ "Avenida Brasília - Novo Mundo - Curitiba/PR": {
+  "lat": -25.49573,
+  "lon": -49.27607,
+  "ok": false,
+  "osm": "Avenida Brasília, Capão Raso, Curitiba, Paraná, Região Sul, 81020-010, Brasil"
+ },
+ "Avenida Brasília 6900 - Novo Mundo - Curitiba/PR": {
+  "lat": -25.49624,
+  "lon": -49.27675,
+  "ok": true,
+  "osm": "Super Condor Avenida Brasília, 6900, Avenida Brasília, Capão Raso, Curitiba, Paraná, Região Sul, 81020-010, Brasil"
+ },
+ "Avenida Caviúna - Bairro Alto - Curitiba/PR": {
+  "lat": -25.40336,
+  "lon": -49.21693,
+  "ok": false,
+  "osm": "Avenida Caviúna, Bairro Alto, Curitiba, Paraná, Região Sul, 81550-310, Brasil"
+ },
+ "Avenida Comendador Franco 6005 - Uberaba - Curitiba/PR": {
+  "lat": -25.4758,
+  "lon": -49.22672,
+  "ok": false,
+  "osm": "Avenida Comendador Franco, Uberaba, Curitiba, Paraná, Região Sul, 81570-140, Brasil"
+ },
+ "Avenida Francisco Krüger 6646 - Cachoeira - Curitiba/PR": {
+  "lat": -25.34816,
+  "lon": -49.26485,
+  "ok": false,
+  "osm": "Avenida Francisco Krüger, Cachoeira, Curitiba, Paraná, Região Sul, 83506-010, Brasil"
+ },
+ "Avenida Juscelino Kubitschek de Oliveira, 2297 - Cidade Industrial - Curitiba/PR": {
+  "lat": -25.4537,
+  "lon": -49.3609,
+  "ok": true,
+  "osm": "2297, Avenida Juscelino Kubitschek de Oliveira (Marginal Leste), Cidade Industrial de Curitiba, Curitiba, Paraná, Região"
+ },
+ "Avenida Manoel Ribas 8243 - Butiatuvinha - Curitiba/PR": {
+  "lat": -25.39201,
+  "lon": -49.3517,
+  "ok": false,
+  "osm": "Avenida Manoel Ribas, Butiatuvinha, Curitiba, Paraná, Região Sul, 82320-750, Brasil"
+ },
+ "Avenida Marechal Floriano Peixoto 10520 - Alto Boqueirão - Curitiba/PR": {
+  "lat": -25.51886,
+  "lon": -49.22984,
+  "ok": true,
+  "osm": "Atacadão, 10520, Avenida Marechal Floriano Peixoto, Alto Boqueirão, Curitiba, Paraná, Região Sul, 81730-000, Brasil"
+ },
+ "Avenida Marechal Floriano Peixoto 3031 - Rebouças - Curitiba/PR": {
+  "lat": -25.45582,
+  "lon": -49.2596,
+  "ok": true,
+  "osm": "3031, Avenida Marechal Floriano Peixoto, Prado Velho, Curitiba, Paraná, Região Sul, 80220-902, Brasil"
+ },
+ "Avenida Marechal Floriano Peixoto, 5350 - Hauer - Curitiba/PR": {
+  "lat": -25.47486,
+  "lon": -49.25084,
+  "ok": true,
+  "osm": "5350, Avenida Marechal Floriano Peixoto, Hauer, Curitiba, Paraná, Região Sul, 81610-150, Brasil"
+ },
+ "Avenida Marechal Floriano Peixoto, 6400 - Hauer - Curitiba/PR": {
+  "lat": -25.48341,
+  "lon": -49.24686,
+  "ok": true,
+  "osm": "Super Muffato Vila Hauer, 6400, Avenida Marechal Floriano Peixoto, Hauer, Curitiba, Paraná, Região Sul, 81630-000, Brasi"
+ },
+ "Avenida Marechal Mascarenhas de Moraes 1463 - Atuba - Curitiba/PR": {
+  "lat": -25.38424,
+  "lon": -49.21558,
+  "ok": true,
+  "osm": "Ítalo, 1463, Avenida Marechal Mascarenhas de Moraes, Atuba, Curitiba, Paraná, Região Sul, 82620-300, Brasil"
+ },
+ "Avenida Marechal Mascarenhas de Moraes 312 - Atuba - Curitiba/PR": {
+  "lat": -25.37733,
+  "lon": -49.22267,
+  "ok": true,
+  "osm": "Hiper Condor Santa Cândida, 312, Avenida Marechal Mascarenhas de Moraes, Tingui, Curitiba, Paraná, Região Sul, 82630-492"
+ },
+ "Avenida Monteiro Tourinho, 478 - Tingui - Curitiba/PR": {
+  "lat": -25.3882,
+  "lon": -49.22152,
+  "ok": true,
+  "osm": "Boni Bacacheri, 478, Avenida Monteiro Tourinho, Tingui, Curitiba, Paraná, Região Sul, 82600-010, Brasil"
+ },
+ "Avenida Paraná 1250 - Cabral - Curitiba/PR": {
+  "lat": -25.40253,
+  "lon": -49.24817,
+  "ok": true,
+  "osm": "BIG Cabral, 1250, Avenida Paraná, Cabral, Curitiba, Paraná, Região Sul, 82540-040, Brasil"
+ },
+ "Avenida Presidente Arthur da Silva Bernardes 2200 - Portão - Curitiba/PR": {
+  "lat": -25.4705,
+  "lon": -49.29627,
+  "ok": true,
+  "osm": "2200, Avenida Presidente Arthur da Silva Bernardes, Portão, Curitiba, Paraná, Região Sul, 80330-000, Brasil"
+ },
+ "Avenida Presidente Kennedy 1000 - Parolin - Curitiba/PR": {
+  "lat": -25.45765,
+  "lon": -49.27084,
+  "ok": true,
+  "osm": "Assaí Atacadista, 1000, Avenida Presidente Kennedy, Água Verde, Curitiba, Paraná, Região Sul, 80620-220, Brasil"
+ },
+ "Avenida Presidente Wenceslau Braz - Parolin - Curitiba/PR": {
+  "lat": -25.479,
+  "lon": -49.28917,
+  "ok": false,
+  "osm": "Avenida Presidente Wenceslau Braz, Portão, Curitiba, Paraná, Região Sul, 80610-905, Brasil"
+ },
+ "Avenida Senador Salgado Filho 4487 - Uberaba - Curitiba/PR": {
+  "lat": -25.46601,
+  "lon": -49.24257,
+  "ok": false,
+  "osm": "Avenida Senador Salgado Filho, Guabirotuba, Curitiba, Paraná, Região Sul, 81520-280, Brasil"
+ },
+ "Avenida Ver Toaldo Túlio, 2780 - Curitiba/PR": {
+  "lat": -25.41486,
+  "lon": -49.35144,
+  "ok": true,
+  "osm": "2780, Avenida Vereador Toaldo Túlio, São Braz, Curitiba, Paraná, Região Sul, 82300-332, Brasil"
+ },
+ "Avenida Ver Toaldo Túlio, Nº2184 - Novo Mundo - Curitiba/PR": {
+  "lat": -25.41076,
+  "lon": -49.34832,
+  "ok": true,
+  "osm": "Supermercado Muffato Santa Felicidade, 2184, Avenida Vereador Toaldo Túlio, São Braz, Curitiba, Paraná, Região Sul, 8201"
+ },
+ "Avenida Vereador Toaldo Túlio - São Braz - Curitiba/PR": {
+  "lat": -25.4218,
+  "lon": -49.34869,
+  "ok": false,
+  "osm": "Avenida Vereador Toaldo Túlio, São Braz, Curitiba, Paraná, Região Sul, 82300-340, Brasil"
+ },
+ "Avenida Victor Ferreira Do Amaral, 1088 - Curitiba/PR": {
+  "lat": -25.42906,
+  "lon": -49.22968,
+  "ok": true,
+  "osm": "Muffato, 1088, Avenida Victor Ferreira do Amaral, Tarumã, Curitiba, Paraná, Região Sul, 82530-200, Brasil"
+ },
+ "Avenida Victor Ferreira Do Amaral, 816 - Tarumã - Curitiba/PR": {
+  "lat": -25.42836,
+  "lon": -49.23204,
+  "ok": true,
+  "osm": "Cacau Show, 816, Avenida Victor Ferreira do Amaral, Tarumã, Curitiba, Paraná, Região Sul, 82530-230, Brasil"
+ },
+ "Avenida Winston Churchill, 1734 - Capão Raso - Curitiba/PR": {
+  "lat": -25.51162,
+  "lon": -49.29598,
+  "ok": true,
+  "osm": "Atacadão Curitiba Pinheirinho, 1734, Avenida Winston Churchill, Capão Raso, Curitiba, Paraná, Região Sul, 81150-140, Bra"
+ },
+ "Avenida Winston Churchill, 2170 - Capão Raso - Curitiba/PR": {
+  "lat": -25.50489,
+  "lon": -49.29605,
+  "ok": false,
+  "osm": "Avenida Winston Churchill, Capão Raso, Curitiba, Paraná, Região Sul, 81130-110, Brasil"
+ },
+ "BR 4761, 1801 - Atuba - Curitiba/PR": {
+  "ok": false
+ },
+ "BR-116, 3041 - Bairro Alto - Curitiba/PR": {
+  "lat": -25.57627,
+  "lon": -49.31207,
+  "ok": false,
+  "osm": "Rodovia Régis Bittencourt, Campo de Santana, Curitiba, Paraná, Região Sul, 81480-700, Brasil"
+ },
+ "Governador Ney Braga, 13807 - Xaxim - Curitiba/PR": {
+  "lat": -25.48109,
+  "lon": -49.26209,
+  "ok": true,
+  "osm": "13807, Avenida Governador Ney Braga, Hauer, Curitiba, Paraná, Região Sul, 81690-200, Brasil"
+ },
+ "R. Ana Berta Roskamp, 10 - Jardim das Américas - Curitiba/PR": {
+  "lat": -25.45277,
+  "lon": -49.22735,
+  "ok": true,
+  "osm": "10, Rua Ana Berta Roskamp, Jardim das Américas, Curitiba, Paraná, Região Sul, 81530-020, Brasil"
+ },
+ "R. Eduardo Pinto da Rocha, 3225 - Ganchinho - Curitiba/PR": {
+  "lat": -25.5559,
+  "lon": -49.25321,
+  "ok": true,
+  "osm": "3225, Rua Eduardo Pinto da Rocha, Ganchinho, Curitiba, Paraná, Região Sul, 81935-060, Brasil"
+ },
+ "R. Emanoel Ernesto Bertoldi, 1025 - Campo de Santana - Curitiba/PR": {
+  "lat": -25.58971,
+  "lon": -49.33005,
+  "ok": true,
+  "osm": "1025, Rua Emanoel Ernesto Bertoldi, Moradias Rio Bonito, Campo de Santana, Aldeia Kakane Porã, Curitiba, Paraná, Região "
+ },
+ "R. Francisco Derosso, 3300 - Curitiba/PR": {
+  "lat": -25.51693,
+  "lon": -49.25707,
+  "ok": true,
+  "osm": "Super Condor Francisco Derosso, 3300, Rua Francisco Derosso, Xaxim, Curitiba, Paraná, Região Sul, 81830-285, Brasil"
+ },
+ "R. José de Oliveira Franco, 2629 - Curitiba/PR": {
+  "lat": -25.4208,
+  "lon": -49.20206,
+  "ok": true,
+  "osm": "Supermercado Rio Verde, 2629, Rua José de Oliveira Franco, Bairro Alto, Curitiba, Paraná, Região Sul, 82820-090, Brasil"
+ },
+ "R. João Bettega, 2576 - Portão - Curitiba/PR": {
+  "lat": -25.48329,
+  "lon": -49.31836,
+  "ok": true,
+  "osm": "Atacadão Curitiba Fazendinha, 2576, Rua João Bettega, Fazendinha, Curitiba, Paraná, Região Sul, 81070-001, Brasil"
+ },
+ "R. Ourizona, 641 - Sítio Cercado - Curitiba/PR": {
+  "lat": -25.55085,
+  "lon": -49.2702,
+  "ok": true,
+  "osm": "641, Rua Ourizona, Sítio Cercado, Curitiba, Paraná, Região Sul, 81925-540, Brasil"
+ },
+ "Rodovia BR-116 - Tarumã - Curitiba/PR": {
+  "lat": -25.38895,
+  "lon": -49.20074,
+  "ok": false,
+  "osm": "Rodovia Régis Bittencourt, Atuba, Curitiba, Paraná, Região Sul, 82840-220, Brasil"
+ },
+ "Rodovia BR-116, , 18.580 - Pinheirinho - Curitiba/PR": {
+  "ok": false
+ },
+ "Rua Agostinho Merlin 586 - Portão - Curitiba/PR": {
+  "lat": -25.46855,
+  "lon": -49.30557,
+  "ok": true,
+  "osm": "586, Rua Agostinho Merlin, Portão, Curitiba, Paraná, Região Sul, 80330-300, Brasil"
+ },
+ "Rua Airton Ribeiro Marques - Tatuquara - Curitiba/PR": {
+  "lat": -25.54373,
+  "lon": -49.29979,
+  "ok": false,
+  "osm": "Rua Airton Ribeiro Marques, Tatuquara, Curitiba, Paraná, Região Sul, 81940-185, Brasil"
+ },
+ "Rua Alberico Flores Bueno 886 - Bairro Alto - Curitiba/PR": {
+  "lat": -25.40094,
+  "lon": -49.20673,
+  "ok": true,
+  "osm": "886, Rua Alberico Flores Bueno, Bairro Alto, Curitiba, Paraná, Região Sul, 82840-170, Brasil"
+ },
+ "Rua Alberto Folloni 420 - Juvevê - Curitiba/PR": {
+  "lat": -25.40708,
+  "lon": -49.26419,
+  "ok": false,
+  "osm": "Rua Alberto Folloni, Ahú, Curitiba, Paraná, Região Sul, 80504-000, Brasil"
+ },
+ "Rua Alfredo Pujol, 38 - Cidade Industrial - Curitiba/PR": {
+  "lat": -25.4821,
+  "lon": -49.34638,
+  "ok": false,
+  "osm": "Rua Alfredo Pujol, Cidade Industrial de Curitiba, Curitiba, Paraná, Região Sul, 81250-350, Brasil"
+ },
+ "Rua Amaury Lange Silvério 1130 - Pilarzinho - Curitiba/PR": {
+  "lat": -25.38879,
+  "lon": -49.28272,
+  "ok": true,
+  "osm": "Supermercado Condor Pilarzinho, 1130, Rua Amaury Lange Silvério, Pilarzinho, Curitiba, Paraná, Região Sul, 82120-000, Br"
+ },
+ "Rua Antônio Zak, 363 - Alto Boqueirão - Curitiba/PR": {
+  "lat": -25.53583,
+  "lon": -49.24538,
+  "ok": false,
+  "osm": "Rua Antônio Zak, Alto Boqueirão, Curitiba, Paraná, Região Sul, 81850-360, Brasil"
+ },
+ "Rua Carmelina Cavassin 201 - Abranches - Curitiba/PR": {
+  "lat": -25.36592,
+  "lon": -49.26311,
+  "ok": true,
+  "osm": "201, Rua Carmelina Cavassin, Barreirinha, Curitiba, Paraná, Região Sul, 82220-010, Brasil"
+ },
+ "Rua Carmelina Cavassin 850 - Abranches - Curitiba/PR": {
+  "lat": -25.36917,
+  "lon": -49.26849,
+  "ok": true,
+  "osm": "850, Rua Carmelina Cavassin, Abranches, Curitiba, Paraná, Região Sul, 82220-330, Brasil"
+ },
+ "Rua Celeste Tortato Gabardo, 1820 - Sítio Cercado - Curitiba/PR": {
+  "lat": -25.54309,
+  "lon": -49.27629,
+  "ok": true,
+  "osm": "1820, Rua Celeste Tortato Gabardo, Vila Nova Aurora, Sítio Cercado, Curitiba, Paraná, Região Sul, 81900-440, Brasil"
+ },
+ "Rua Coronel Luiz José dos Santos, 3241 - Xaxim - Curitiba/PR": {
+  "lat": -25.50226,
+  "lon": -49.2566,
+  "ok": false,
+  "osm": "Rua Coronel Luiz José dos Santos, Boqueirão, Curitiba, Paraná, Região Sul, 81710-410, Brasil"
+ },
+ "Rua Cruzeiro do Sul, 430 - Sítio Cercado - Curitiba/PR": {
+  "lat": -25.53988,
+  "lon": -49.28074,
+  "ok": true,
+  "osm": "430, Rua Cruzeiro do Sul, Sítio Cercado, Curitiba, Paraná, Região Sul, 81900-460, Brasil"
+ },
+ "Rua Delegado Leopoldo Belczak 1473 - Capão da Imbuia - Curitiba/PR": {
+  "lat": -25.43699,
+  "lon": -49.22216,
+  "ok": true,
+  "osm": "Tok Super, 1473, Rua Delegado Leopoldo Belczak, Capão da Imbuia, Curitiba, Paraná, Região Sul, 82800-240, Brasil"
+ },
+ "Rua Deputado Joaquim José Pedrosa - Cabral - Curitiba/PR": {
+  "lat": -25.40468,
+  "lon": -49.24945,
+  "ok": false,
+  "osm": "Rua Deputado Joaquim José Pedrosa, Cabral, Curitiba, Paraná, Região Sul, 80035-060, Brasil"
+ },
+ "Rua Desembargador Antônio de Paula - 2765 - Boqueirão - Curitiba/PR": {
+  "lat": -25.51515,
+  "lon": -49.24495,
+  "ok": false,
+  "osm": "Rua Desembargador Antônio de Paula, Boqueirão, Curitiba, Paraná, Região Sul, 81750-450, Brasil"
+ },
+ "Rua Doutor Cézar Pernetta, 295 - Tatuquara - Curitiba/PR": {
+  "lat": -25.57066,
+  "lon": -49.33637,
+  "ok": false,
+  "osm": "Rua Doutor Cezar Pernetta, Moradias Monteiro Lobato I, Tatuquara, Curitiba, Paraná, Região Sul, 81470-400, Brasil"
+ },
+ "Rua Eduardo Carlos Pereira 3605 - Novo Mundo - Curitiba/PR": {
+  "lat": -25.47816,
+  "lon": -49.28861,
+  "ok": true,
+  "osm": "Super Muffato Hipermercado, 3605, Rua Eduardo Carlos Pereira, Portão, Curitiba, Paraná, Região Sul, 80610-010, Brasil"
+ },
+ "Rua Eduardo Pinto da Rocha 2836 - Sítio Cercado - Curitiba/PR": {
+  "lat": -25.55917,
+  "lon": -49.26139,
+  "ok": false,
+  "osm": "Rua Eduardo Pinto da Rocha, Ganchinho, Curitiba, Paraná, Região Sul, 81935-301, Brasil"
+ },
+ "Rua Eduardo Pinto da Rocha, 469 - Alto Boqueirão - Curitiba/PR": {
+  "lat": -25.53505,
+  "lon": -49.24256,
+  "ok": true,
+  "osm": "469, Rua Eduardo Pinto da Rocha, Alto Boqueirão, Curitiba, Paraná, Região Sul, 81850-000, Brasil"
+ },
+ "Rua Eduardo Sprada, 5105 - Curitiba/PR": {
+  "lat": -25.45007,
+  "lon": -49.35245,
+  "ok": true,
+  "osm": "5105, Rua Eduardo Sprada, Cidade Industrial de Curitiba, Curitiba, Paraná, Região Sul, 81280-350, Brasil"
+ },
+ "Rua Ernesto Germano Francisco Hannemann, 174 - Tatuquara - Curitiba/PR": {
+  "lat": -25.55846,
+  "lon": -49.32913,
+  "ok": true,
+  "osm": "174, Rua Ernesto Germano Francisco Hannemann, Vila Moradias Beira-rio, Tatuquara, Curitiba, Paraná, Região Sul, 81480-23"
+ },
+ "Rua Eunice Bettini Bartoszeck 1990 - Uberaba - Curitiba/PR": {
+  "lat": -25.47983,
+  "lon": -49.20102,
+  "ok": true,
+  "osm": "1990, Rua Eunice Bettini Bartoszeck, Uberaba, Curitiba, Paraná, Região Sul, 81590-250, Brasil"
+ },
+ "Rua Francisco Derosso, 2973 - Xaxim - Curitiba/PR": {
+  "lat": -25.51315,
+  "lon": -49.25758,
+  "ok": true,
+  "osm": "Supermercado BIG, 2973, Rua Francisco Derosso, Xaxim, Curitiba, Paraná, Região Sul, 81830-285, Brasil"
+ },
+ "Rua Francisco Derosso, 4693 - Alto Boqueirão - Curitiba/PR": {
+  "lat": -25.49635,
+  "lon": -49.27408,
+  "ok": false,
+  "osm": "Rua Francisco Derosso, Xaxim, Curitiba, Paraná, Região Sul, 81810-440, Brasil"
+ },
+ "Rua General Potiguara 2895 - Novo Mundo - Curitiba/PR": {
+  "lat": -25.49687,
+  "lon": -49.30883,
+  "ok": false,
+  "osm": "Rua General Potiguara, Novo Mundo, Curitiba, Paraná, Região Sul, 81050-200, Brasil"
+ },
+ "Rua Isaac Guelmann 4134 - Novo Mundo - Curitiba/PR": {
+  "lat": -25.48163,
+  "lon": -49.29602,
+  "ok": true,
+  "osm": "Super Dia, 4134, Rua Isaac Guelmann, Novo Mundo, Curitiba, Paraná, Região Sul, 81050-030, Brasil"
+ },
+ "Rua Izaac Ferreira da Cruz, 2941 - Sítio Cercado - Curitiba/PR": {
+  "lat": -25.5367,
+  "lon": -49.27449,
+  "ok": true,
+  "osm": "2941, Rua Izaac Ferreira da Cruz, Sítio Cercado, Curitiba, Paraná, Região Sul, 81900-540, Brasil"
+ },
+ "Rua Izaac Ferreira da Cruz, 3868 - Curitiba/PR": {
+  "lat": -25.53436,
+  "lon": -49.2657,
+  "ok": true,
+  "osm": "Condor, 3868, Rua Izaac Ferreira da Cruz, Sítio Cercado, Curitiba, Paraná, Região Sul, 81910-000, Brasil"
+ },
+ "Rua José Benedito Cottolengo 1191 - Campo Comprido - Curitiba/PR": {
+  "lat": -25.46657,
+  "lon": -49.32387,
+  "ok": false,
+  "osm": "Rua José Benedito Cottolengo, Campo Comprido, Curitiba, Paraná, Região Sul, 81320-390, Brasil"
+ },
+ "Rua João Alencar Guimarães, 2126 - Curitiba/PR": {
+  "lat": -25.46094,
+  "lon": -49.324,
+  "ok": true,
+  "osm": "2126, Rua João Alencar Guimarães, Campo Comprido, Curitiba, Paraná, Região Sul, 81220-060, Brasil"
+ },
+ "Rua João Dembinski 1410 - Cidade Industrial - Curitiba/PR": {
+  "lat": -25.4609,
+  "lon": -49.34629,
+  "ok": true,
+  "osm": "Supermercado Condor Campo Comprido, 1410, Rua João Dembinski, Cidade Industrial de Curitiba, Curitiba, Paraná, Região Su"
+ },
+ "Rua Lodovico Geronazzo 805 - Boa Vista - Curitiba/PR": {
+  "lat": -25.38847,
+  "lon": -49.24464,
+  "ok": true,
+  "osm": "Supermercado Condor, 805, Rua Lodovico Geronazzo, Boa Vista, Curitiba, Paraná, Região Sul, 82560-040, Brasil"
+ },
+ "Rua Lothario Boutin, 554 - Pinheirinho - Curitiba/PR": {
+  "lat": -25.51019,
+  "lon": -49.28855,
+  "ok": true,
+  "osm": "Muffato Max Linha Verde, 554, Rua Lothário Boutin, Pinheirinho, Curitiba, Paraná, Região Sul, 81110-070, Brasil"
+ },
+ "Rua Maestro Carlos Frank 2812 - Boqueirão - Curitiba/PR": {
+  "lat": -25.52346,
+  "lon": -49.24494,
+  "ok": true,
+  "osm": "Jacomar, 2812, Rua Maestro Carlos Frank, Boqueirão, Curitiba, Paraná, Região Sul, 81750-400, Brasil"
+ },
+ "Rua Manoel Máximo dos Santos, 141 - Cajuru - Curitiba/PR": {
+  "lat": -25.46986,
+  "lon": -49.20887,
+  "ok": false,
+  "osm": "Rua Manoel Máximo dos Santos, Cajuru, Curitiba, Paraná, Região Sul, 82960-180, Brasil"
+ },
+ "Rua Marcos Antônio Malucelli, 947 - Curitiba/PR": {
+  "lat": -25.48587,
+  "lon": -49.35292,
+  "ok": true,
+  "osm": "Supermercado Curitiba, 947, Rua Marcos Antônio Malucelli, Cidade Industrial de Curitiba, Curitiba, Paraná, Região Sul, 8"
+ },
+ "Rua Marcos Bertoldi, 700 - Campo de Santana - Curitiba/PR": {
+  "lat": -25.5885,
+  "lon": -49.33905,
+  "ok": true,
+  "osm": "700, Rua Marcos Bertoldi, Moradias Rio Bonito, Campo de Santana, Aldeia Kakane Porã, Curitiba, Paraná, Região Sul, 81490"
+ },
+ "Rua Martim Afonso 2162 - Bigorrilho - Curitiba/PR": {
+  "lat": -25.42594,
+  "lon": -49.27846,
+  "ok": false,
+  "osm": "Rua Martim Afonso, São Francisco, Curitiba, Paraná, Região Sul, 80510-240, Brasil"
+ },
+ "Rua Mateus Leme, 4556 - Novo Mundo - Curitiba/PR": {
+  "lat": -25.38864,
+  "lon": -49.26709,
+  "ok": true,
+  "osm": "Festval São Lourenço, 4556, Rua Mateus Leme, São Lourenço, Curitiba, Paraná, Região Sul, 81020-430, Brasil"
+ },
+ "Rua Nicola Pellanda 1346 - Pinheirinho - Curitiba/PR": {
+  "lat": -25.54113,
+  "lon": -49.29512,
+  "ok": true,
+  "osm": "Condor Umbará, 1346, Rua Nicola Pellanda, Pinheirinho, Curitiba, Paraná, Região Sul, 81880-000, Brasil"
+ },
+ "Rua Nova Aurora, 2509 - Novo Mundo - Curitiba/PR": {
+  "ok": false
+ },
+ "Rua Padre Germano Mayer, 1502 - Hugo Lange - Curitiba/PR": {
+  "lat": -25.43472,
+  "lon": -49.24971,
+  "ok": false,
+  "osm": "Rua Padre Germano Mayer, Cristo Rei, Curitiba, Paraná, Região Sul, 80050-260, Brasil"
+ },
+ "Rua Padre José Lopacinski 740 - Cidade Industrial - Curitiba/PR": {
+  "lat": -25.43777,
+  "lon": -49.35512,
+  "ok": false,
+  "osm": "Rua Padre José Lopacinski, Cidade Industrial de Curitiba, Curitiba, Paraná, Região Sul, 81280-480, Brasil"
+ },
+ "Rua Presidente João Goulart - Tatuquara - Curitiba/PR": {
+  "lat": -25.57569,
+  "lon": -49.3302,
+  "ok": false,
+  "osm": "Rua Presidente João Goulart, Tatuquara, Curitiba, Paraná, Região Sul, 81470-470, Brasil"
+ },
+ "Rua Professor Algacyr Munhoz Mader, 4538 - Cidade Industrial De Curitiba - Curitiba/PR": {
+  "lat": -25.49396,
+  "lon": -49.32944,
+  "ok": false,
+  "osm": "Rua Professor Algacyr Munhoz Mader, Cidade Industrial de Curitiba, Curitiba, Paraná, Região Sul, 81350-900, Brasil"
+ },
+ "Rua Professor Francisco Zardo 58 - Santa Felicidade - Curitiba/PR": {
+  "lat": -25.40316,
+  "lon": -49.33529,
+  "ok": false,
+  "osm": "Rua Professor Francisco Zardo, Santa Felicidade, Curitiba, Paraná, Região Sul, 82320-030, Brasil"
+ },
+ "Rua Professor Álvaro Jorge 75 - Vila Izabel - Curitiba/PR": {
+  "lat": -25.45897,
+  "lon": -49.28982,
+  "ok": true,
+  "osm": "Festval, 75, Rua Professor Álvaro Jorge, Vila Izabel, Curitiba, Paraná, Região Sul, 80320-040, Brasil"
+ },
+ "Rua Raul Pompéia - Cidade Industrial - Curitiba/PR": {
+  "lat": -25.48286,
+  "lon": -49.34635,
+  "ok": false,
+  "osm": "Rua Raul Pompéia, Cidade Industrial de Curitiba, Curitiba, Paraná, Região Sul, 81250-350, Brasil"
+ },
+ "Rua Santa Maria - Fanny - Curitiba/PR": {
+  "lat": -25.48934,
+  "lon": -49.28051,
+  "ok": false,
+  "osm": "Rua Santa Maria, Novo Mundo, Curitiba, Paraná, Região Sul, 81030-410, Brasil"
+ },
+ "Rua Tijucas do Sul, 1491 - Sítio Cercado - Curitiba/PR": {
+  "lat": -25.54749,
+  "lon": -49.26101,
+  "ok": false,
+  "osm": "Rua Tijucas do Sul, Sítio Cercado, Curitiba, Paraná, Região Sul, 81925-410, Brasil"
+ },
+ "Rua Uriel Nogueira dos Santos - Campo de Santana - Curitiba/PR": {
+  "ok": false
+ },
+ "Rua Visconde do Serro Frio - Novo Mundo - Curitiba/PR": {
+  "lat": -25.48604,
+  "lon": -49.30689,
+  "ok": false,
+  "osm": "Rua Visconde do Serro Frio, Vila Uberlândia, Novo Mundo, Curitiba, Paraná, Região Sul, 81050-424, Brasil"
+ },
+ "Rua William Booth 2623 - Boqueirão - Curitiba/PR": {
+  "lat": -25.50996,
+  "lon": -49.22217,
+  "ok": true,
+  "osm": "2623, Rua William Booth, Boqueirão, Curitiba, Paraná, Região Sul, 81730-080, Brasil"
+ }
+}
