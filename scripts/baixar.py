@@ -48,6 +48,16 @@ def main():
                 elif data is not None:
                     print(f"  ignorado: {d} (arquivo vazio ou inesperado, {len(data)} bytes)")
         d += timedelta(days=1)
+    # teste de conexão com a fonte (aparece no log do GitHub Actions)
+    ultimos = sorted(f[:10] for f in os.listdir(DEST) if f.endswith(".csv.gz"))
+    if ultimos:
+        try:
+            req = urllib.request.Request(URL.format(d=ultimos[-1]), method="HEAD",
+                                         headers={"User-Agent": "precos-curitiba (GitHub Actions)"})
+            with urllib.request.urlopen(req, timeout=30) as r:
+                print(f"fonte acessível (HTTP {r.status}); último dia guardado: {ultimos[-1]}")
+        except Exception as e:
+            print(f"ATENÇÃO: fonte inacessível: {e}", file=sys.stderr)
     print(f"arquivos novos: {novos}")
     out = os.environ.get("GITHUB_OUTPUT")
     if out:
