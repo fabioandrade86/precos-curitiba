@@ -40,27 +40,39 @@ jobs:
         id: baixar
         run: python scripts/baixar.py
 
+      - name: Localizar lojas novas no mapa (OpenStreetMap)
+        id: geo
+        continue-on-error: true
+        run: python scripts/geocode_lojas.py
+
+      - name: Decidir se publica
+        id: pub
+        run: |
+          if [ "${{ steps.baixar.outputs.novos }}" != "0" ] || [ "${{ steps.geo.outputs.geo }}" != "0" ] || [ "${{ github.event_name }}" != "schedule" ]; then echo "sim=1" >> $GITHUB_OUTPUT; else echo "sim=0" >> $GITHUB_OUTPUT; fi
+
       - name: Gerar dados da página (valida o arquivo novo)
-        if: steps.baixar.outputs.novos != '0' || github.event_name != 'schedule'
+        if: steps.pub.outputs.sim == '1'
         run: python scripts/build_data.py
 
       - name: Guardar os arquivos novos no repositório
-        if: steps.baixar.outputs.novos != '0'
+        if: steps.pub.outputs.sim == '1'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add dados/diarios
-          git commit -m "Preços de $(ls dados/diarios | tail -1 | cut -c1-10)"
-          git push
+          git add dados/diarios dados/geocache.json 2>/dev/null || git add dados/diarios
+          if ! git diff --cached --quiet; then
+            git commit -m "Preços de $(ls dados/diarios | tail -1 | cut -c1-10)"
+            git push
+          fi
 
       - uses: actions/configure-pages@v5
-        if: steps.baixar.outputs.novos != '0' || github.event_name != 'schedule'
+        if: steps.pub.outputs.sim == '1'
 
       - uses: actions/upload-pages-artifact@v3
-        if: steps.baixar.outputs.novos != '0' || github.event_name != 'schedule'
+        if: steps.pub.outputs.sim == '1'
         with:
           path: site
 
       - id: deploy
         uses: actions/deploy-pages@v4
-        if: steps.baixar.outputs.novos != '0' || github.event_name != 'schedule'
+        if: steps.pub.outputs.sim == '1'

@@ -9,7 +9,7 @@ Grava: site/data/*.json
 Falha (exit 1) se o arquivo diário mais recente não passar na validação — assim a
 página publicada nunca é substituída por dados quebrados.
 """
-import glob, json, math, os, re, sys
+import glob, hashlib, json, math, os, re, sys
 from datetime import datetime, timezone
 import numpy as np
 import pandas as pd
@@ -18,7 +18,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_TARGET = "2026-11-08"     # marco zero pedido; usa a última pesquisa até essa data
 DAILY_FROM = "2025-01-01"      # antes disso a série é semanal
 WINDOW_DAYS = 7
-NEAR_KM = 6.5
+NEAR_KM = 5
 NEAR_MIN = 6
 
 CATS = {1: "Produtos básicos", 2: "Alimentos especiais (sem glúten, diet…)", 3: "Direto do produtor",
@@ -178,6 +178,10 @@ def main():
     daily = pd.concat(dailies, ignore_index=True)
     daily["id_produto"] = daily["id_produto"].str.replace(r"\.0$", "", regex=True)
     daily["id_empresa"] = pd.to_numeric(daily["id_empresa"], errors="coerce")
+    # ~14% das linhas vêm sem código de loja: cria um código estável a partir de rede + endereço
+    sem = daily["id_empresa"].isna()
+    chave = daily.loc[sem, "rede"].astype(str).str.strip().str.lower() + "|" + daily.loc[sem, "endereco_completo"].astype(str).str.strip()
+    daily.loc[sem, "id_empresa"] = chave.map(lambda k: 100000 + int(hashlib.md5(k.encode("utf-8")).hexdigest()[:5], 16))
 
     cols = ["data_pesquisa", "id_empresa", "id_produto", "preco_regular", "preco_promocao"]
     df = pd.concat([hist[cols], daily[cols]], ignore_index=True)
@@ -213,24 +217,47 @@ def main():
     act_stores = sorted(set(df.loc[df["d"] > last_date - pd.Timedelta(days=21), "id_empresa"]) & set(storeinfo.index))
     places = cfg["lugares"]
     atac = set(cfg.get("atacarejos", []))
+    gpath = os.path.join(ROOT, "dados", "geocache.json")
+    geo = json.load(open(gpath, encoding="utf-8")) if os.path.exists(gpath) else {}
+    bairros = cfg["bairros"]
+
+    def locate(sid, end):
+        street = re.sub(r"\s*-\s*Curitiba/PR\s*$", "", end).strip()
+        parts = [p.strip() for p in street.split(" - ") if p.strip()]
+        conf = cfg["lojas"].get(str(sid)) or cfg.get("enderecos", {}).get(end) or {}
+        bairro = conf.get("bairro") or (parts[-1] if len(parts) > 1 and not re.match(r"^\d", parts[-1]) else "")
+        bairro = re.sub(r"\s+De Curitiba$", "", bairro)
+        rua = parts[0] if parts else street
+        if len(parts) > 2 and re.match(r"^\d", parts[1]):
+            rua += ", " + parts[1]
+        g = geo.get(end) or {}
+        if g.get("ok"):
+            lat, lon, prec = g["lat"], g["lon"], "endereço"
+        elif conf.get("lat") is not None:
+            lat, lon, prec = conf["lat"], conf["lon"], "aproximada"
+        elif bairro in bairros:
+            (lat, lon), prec = bairros[bairro], "bairro"
+        else:
+            lat = lon = None; prec = None
+        return rua, bairro, lat, lon, prec
+
     stores, sidx = [], {}
     for sid in act_stores:
         r = storeinfo.loc[sid]
         chain = chain_name(r.rede)
-        end = str(r.end or "")
-        street = re.sub(r"\s*-\s*Curitiba/PR\s*$", "", end).strip()
-        parts = [p.strip() for p in street.split(" - ")]
-        conf = cfg["lojas"].get(str(sid), {})
-        bairro = conf.get("bairro") or (parts[-1] if len(parts) > 1 else "")
-        rua = parts[0] if parts else street
-        lat, lon = conf.get("lat"), conf.get("lon")
-        if lat is None and bairro in cfg["bairros"]:
-            lat, lon = cfg["bairros"][bairro]
-        dist = {k: (round(hav((lat, lon), (v["lat"], v["lon"])), 1) if lat is not None else None)
-                for k, v in places.items()}
+        rua, bairro, lat, lon, prec = locate(sid, str(r.end or ""))
         sidx[sid] = len(stores)
-        stores.append({"id": int(sid), "rede": chain, "rua": rua, "bairro": bairro,
-                       "atac": chain in atac, "km": dist})
+        stores.append({"id": int(sid), "rede": chain, "rua": rua, "bairro": bairro, "atac": chain in atac,
+                       "lat": lat, "lon": lon, "pos": prec})
+    # lojas que a Prefeitura não pesquisa, com preço estimado pela rede
+    extras = []
+    for j, e in enumerate(cfg.get("extras", [])):
+        g = geo.get(e["rua"]) or {}
+        lat, lon = (g["lat"], g["lon"]) if g.get("ok") else (e.get("lat"), e.get("lon"))
+        extras.append(len(stores))
+        stores.append({"id": -1 - j, "rede": e["rede"], "rua": re.sub(r"\s*-.*$", "", e["rua"]), "bairro": e.get("bairro", ""),
+                       "atac": e["rede"] in atac, "lat": lat, "lon": lon, "pos": "endereço" if g.get("ok") else "aproximada",
+                       "est": True, "obs": e.get("obs", "")})
     chains = sorted({s["rede"] for s in stores})
 
     all_dates = pd.Series(sorted(df["d"].unique()))
@@ -269,8 +296,14 @@ def main():
             var[k] = round((now / past - 1) * 100, 1) if past else None
         rec = g[(g["d"] > last_date - pd.Timedelta(days=21)) & g["id_empresa"].isin(sidx)].sort_values("d")
         rec = rec.groupby("id_empresa").last()
-        st = sorted(([sidx[s], int(round(r.p * 100)), int((last_date - r.d).days), int(bool(r.promo))]
-                     for s, r in rec.iterrows()), key=lambda x: x[1])
+        st = [[sidx[s], int(round(r.p * 100)), int((last_date - r.d).days), int(bool(r.promo))]
+              for s, r in rec.iterrows()]
+        for xi in extras:
+            same = [e[1] for e in st if stores[e[0]]["rede"] == stores[xi]["rede"]]
+            if len(same) >= 2:
+                st.append([xi, int(round(float(np.median(same)))), 0, 0, 1])
+        st.sort(key=lambda x: x[1])
+        ns_real = sum(1 for e in st if len(e) < 5)
         w = yrw[yrw["id_produto"] == pid].groupby("dow")["rel"].agg(["mean", "size"])
         wk = None
         if len(w) >= 4 and w["size"].min() >= 8:
@@ -281,7 +314,7 @@ def main():
         hist_days = (last_date - typ.dropna().index[0]).days if typ.notna().any() else 0
         low12 = bool(hist_days >= 180 and len(ty) and now <= float(ty.min()) + 0.005 and now < float(ty.max()) * 0.97)
         prods.append({"id": pid, "n": name, "b": brand, "q": size, "c": cat, "now": round(now, 2),
-                      "ns": len(st), **var, "s": st, "w": wk, "low12": low12,
+                      "ns": ns_real, **var, "s": st, "w": wk, "low12": low12,
                       "lo": [ty.idxmin().strftime("%Y-%m-%d"), round(float(ty.min()), 2)] if len(ty) else None,
                       "hi": [ty.idxmax().strftime("%Y-%m-%d"), round(float(ty.max()), 2)] if len(ty) else None})
         enc = lambda s: [None if pd.isna(x) else int(round(x * 100)) for x in s]
@@ -327,7 +360,7 @@ def main():
             "last": last_date.strftime("%Y-%m-%d"), "first": axis[0].strftime("%Y-%m-%d"),
             "base_target": BASE_TARGET, "base": base_date.strftime("%Y-%m-%d"),
             "axis": [d.strftime("%Y-%m-%d") for d in axis], "recent_days": days_cov,
-            "stores": stores, "places": {k: v["nome"] for k, v in places.items()},
+            "stores": stores, "places": places,
             "near_km": NEAR_KM, "near_min": NEAR_MIN, "cats": CATS, "n": len(prods),
             "source": "Clique Economia — SMSAN / Prefeitura de Curitiba (Dados Abertos)"}
     dump("meta.json", meta)

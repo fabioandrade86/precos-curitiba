@@ -55,6 +55,12 @@ h1{font-size:21px;margin:0;line-height:1.2;flex:1}
 @keyframes spin{to{transform:rotate(360deg)}}
 .place{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:10px}
 .place .lbl{font-weight:700;font-size:16px}
+.addr{margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:12px}
+.addr form{display:flex;gap:8px;flex-wrap:wrap}
+.addr input{flex:1 1 220px;min-height:50px;border:2px solid var(--border);border-radius:12px;background:var(--page);padding:0 12px;font-size:17px}
+.addr .res button{display:block;width:100%;text-align:left;border:1px solid var(--border);background:var(--page);border-radius:10px;padding:10px 12px;margin-top:6px;font-size:16px}
+.radius{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px}
+.tag.est{background:var(--accent-soft);color:var(--accent)}
 .chip{flex:none;border:1px solid var(--border);background:var(--surface);border-radius:999px;padding:7px 14px;font-size:16px;font-weight:650;min-height:42px}
 .chip[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
 nav.tabs{display:flex;gap:6px;margin:12px 0}
@@ -122,7 +128,7 @@ table.t td{font-variant-numeric:tabular-nums}
 .chartbox{position:relative;height:260px}
 @media (min-width:900px){.chartbox{height:320px}}
 .bars{display:flex;flex-direction:column;gap:6px}
-.bar{display:grid;grid-template-columns:minmax(90px,170px) 1fr 70px;align-items:center;gap:8px;font-size:16px}
+.bar{display:grid;grid-template-columns:minmax(90px,170px) 1fr 74px;align-items:center;gap:8px;font-size:16px}
 .bar .track{position:relative;height:16px}
 .bar .track .mid{position:absolute;left:50%;top:-3px;bottom:-3px;width:1px;background:var(--axis)}
 .bar .track .fill{position:absolute;top:0;bottom:0;border-radius:4px}
@@ -174,6 +180,16 @@ input[type=date]{min-height:46px;border:1px solid var(--border);border-radius:10
       <button class="btn small" id="btnUpdate" title="Buscar os preços mais novos"><span class="spin">⟳</span> Atualizar</button>
     </div>
     <div class="place" id="placeBar"><span class="lbl">📍 Perto de:</span></div>
+    <div class="addr hidden" id="addrPanel">
+      <form id="addrForm" autocomplete="off">
+        <input id="addrIn" type="search" placeholder="Digite seu endereço: rua e número" enterkeyhint="search" aria-label="Endereço">
+        <button class="btn primary" type="submit">Buscar</button>
+      </form>
+      <div class="tools" style="margin:8px 0 0"><button class="btn small" id="geoBtn">🎯 Usar minha localização</button><button class="btn small" id="addrClose">Fechar</button></div>
+      <div class="res" id="addrRes"></div>
+      <p class="note">O endereço é enviado ao OpenStreetMap só para achar o ponto no mapa e fica guardado apenas neste aparelho.</p>
+    </div>
+    <div class="radius" id="radiusBar"><span class="small"><b>Distância:</b></span><div class="seg" id="raioSeg"></div><span class="small muted" id="nearCount"></span></div>
   </div>
 </header>
 
@@ -301,7 +317,7 @@ const MIL=[{d:10,l:'+10 dias'},{d:30,l:'+1 mês'},{d:91,l:'+3 meses'},{d:365,l:'
 const BASKET=[['arroz','5 kg'],['feijao carioca','1 kg'],['acucar refinado','1 kg'],['cafe','500'],['oleo de soja',''],['leite longa vida integral',''],['farinha de trigo','1 kg'],['macarrao',''],['sal refinado',''],['ovos','']];
 const S={meta:null,prods:[],byId:{},ins:null,series:{},axisT:[],cart:[],tab:'inicio',place:'barreirinha',near:[],
   upPeriod:'v30',downPeriod:'v30',listPeriod:'v30',cat:'all',q:'',sort:'nome',shown:50,
-  repMode:'past',repPeriod:'v365',repScale:'pct',repBase:null,pick:[],charts:{}};
+  repMode:'past',repPeriod:'v365',repScale:'pct',repBase:null,pick:[],charts:{},loc:null,raio:5};
 
 /* ---------- utilidades ---------- */
 const fmtDate=s=>{if(!s)return'—';const[y,m,d]=s.split('-');return`${d}/${m}/${y}`};
@@ -326,7 +342,12 @@ const subTxt=p=>[brandTxt(p),p.q].filter(Boolean).join(' · ');
 const fullName=p=>p.n+(p.b&&p.b!=='marca mais barata'?' '+p.b:'')+(p.q?' '+p.q:'');
 const st=i=>S.meta.stores[i];
 const stName=i=>{const s=st(i);return`${s.rede} ${s.bairro}`.trim()};
-const km=i=>{const v=st(i).km[S.place];return v==null?'':`≈ ${N1.format(v).replace(',0','')} km`};
+function hav(a,b,c,d){const r=Math.PI/180,x=Math.sin((c-a)*r/2)**2+Math.cos(a*r)*Math.cos(c*r)*Math.sin((d-b)*r/2)**2;return 6371*2*Math.asin(Math.sqrt(x))}
+function point(){if(S.place==='todos')return null;if(S.place==='meu')return S.loc;return S.meta.places[S.place]||null}
+function dist(i){const p=point(),s=st(i);if(!p||s.lat==null)return null;return hav(p.lat,p.lon,s.lat,s.lon)}
+const km=i=>{const v=dist(i);return v==null?'':`≈ ${v<1?Math.round(v*10)*100+' m':N1.format(v).replace(',0','')+' km'}`};
+const isEst=e=>e&&e.length===5;
+const placeLabel=()=>S.place==='todos'?'Curitiba toda':S.place==='meu'?(S.loc&&S.loc.nome||'meu endereço'):S.meta.places[S.place].nome;
 const agoTxt=d=>d<=0?'na última pesquisa':d===1?'há 1 dia':`há ${d} dias`;
 function toast(msg,ms=3200){const t=$('#toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('show'),ms)}
 function store(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
@@ -350,9 +371,9 @@ async function loadAll(){
 }
 function computeNear(){
   const m=S.meta;
-  if(S.place==='todos'){S.near=m.stores.map((_,i)=>i);return}
-  const order=m.stores.map((s,i)=>[i,s.km[S.place]]).filter(x=>x[1]!=null).sort((a,b)=>a[1]-b[1]);
-  S.near=order.filter((x,j)=>x[1]<=m.near_km||j<m.near_min).map(x=>x[0]);
+  if(!point()){S.near=m.stores.map((_,i)=>i);return}
+  const order=m.stores.map((s,i)=>[i,dist(i)]).filter(x=>x[1]!=null).sort((a,b)=>a[1]-b[1]);
+  S.near=order.filter((x,j)=>x[1]<=S.raio||j<m.near_min).map(x=>x[0]);
 }
 async function seriesOf(p){
   if(!S.series[p.c])S.series[p.c]=getJSON(`serie-${p.c}.json`,S.ver);
@@ -396,17 +417,40 @@ function renderTop(){
   $('#whenSub').innerHTML=missing>=3?`⚠️ A Prefeitura não publica preços novos há ${missing} dias úteis. Use com cuidado.`
     :`Pesquisa da Prefeitura · atualiza sozinho todo dia útil${days>0?` · ${days===1?'ontem':'há '+days+' dias'}`:''}`;
   $('#band').classList.toggle('old',missing>=3);
-  const opts=[...Object.entries(m.places),['todos','Curitiba toda']];
-  $('#placeBar').innerHTML='<span class="lbl">📍 Perto de:</span>'+opts.map(([k,l])=>`<button class="chip" data-place="${k}" aria-pressed="${S.place===k}">${esc(l)}</button>`).join('');
-  $('#foot').innerHTML=`Fonte: ${esc(m.source)}. A Prefeitura pesquisa cerca de 750 itens em ${m.stores.length} supermercados de Curitiba, de segunda a sexta. Os preços são os da prateleira no dia da pesquisa (promoções incluídas; preço de clube/fidelidade e de atacado não). <b>Confira sempre na loja.</b> Distâncias em linha reta, aproximadas. "Preço comum" = valor do meio entre os mercados na última semana. Histórico desde ${fmtDate(m.first)}. Dados processados em ${new Date(m.generated).toLocaleString('pt-BR')}.`;
+  const opts=[...Object.entries(m.places).map(([k,v])=>[k,v.nome]),['meu',S.loc?'🏠 '+S.loc.nome:'＋ Meu endereço'],['todos','Curitiba toda']];
+  $('#placeBar').innerHTML='<span class="lbl">📍 Perto de:</span>'+opts.map(([k,l])=>`<button class="chip" data-place="${k}" aria-pressed="${S.place===k}">${esc(l)}</button>`).join('')
+    +(S.loc?'<button class="chip" data-addr="1" aria-label="Trocar endereço">✏️ Trocar</button>':'');
+  $('#raioSeg').innerHTML=[2,5,10].map(r=>`<button data-raio="${r}" aria-pressed="${S.raio===r}">até ${r} km</button>`).join('');
+  $('#radiusBar').classList.toggle('hidden',!point());
+  $('#nearCount').textContent=point()?`${S.near.length} mercados`:'';
+  $('#foot').innerHTML=`Fonte: ${esc(m.source)}. A Prefeitura pesquisa cerca de 750 itens em ${m.stores.length} supermercados de Curitiba, de segunda a sexta. Os preços são os da prateleira no dia da pesquisa (promoções incluídas; preço de clube/fidelidade e de atacado não). <b>Confira sempre na loja.</b> Só aparecem as lojas que a Prefeitura pesquisa (mais as marcadas como "preço estimado"). Distâncias em linha reta, aproximadas. "Preço comum" = valor do meio entre os mercados na última semana. Histórico desde ${fmtDate(m.first)}. Dados processados em ${new Date(m.generated).toLocaleString('pt-BR')}.`;
 }
-function setPlace(k){S.place=k;store('perto',k);computeNear();renderAll();
-  try{const u=new URL(location.href);u.searchParams.set('perto',k);history.replaceState(null,'',u)}catch(e){}}
+function setPlace(k){
+  if(k==='meu'&&!S.loc){openAddr();return}
+  S.place=k;store('perto',k);computeNear();renderAll();
+  try{const u=new URL(location.href);['perto','lat','lon','nome'].forEach(x=>u.searchParams.delete(x));u.searchParams.set('perto',k);history.replaceState(null,'',u)}catch(e){}}
+function openAddr(){$('#addrPanel').classList.remove('hidden');$('#addrRes').innerHTML='';setTimeout(()=>$('#addrIn').focus(),50)}
+function closeAddr(){$('#addrPanel').classList.add('hidden')}
+function setLoc(loc){S.loc=loc;store('lugar',loc);closeAddr();setPlace('meu');toast('Pronto! Mostrando mercados perto de '+loc.nome,2500)}
+async function searchAddr(q){
+  q=q.trim();if(q.length<4){toast('Digite a rua e o número');return}
+  $('#addrRes').innerHTML='<p class="muted small">Procurando…</p>';
+  const qq=/curitiba/i.test(q)?q:q+', Curitiba';
+  try{
+    const u='https://nominatim.openstreetmap.org/search?format=jsonv2&limit=5&countrycodes=br&addressdetails=1&accept-language=pt-BR&viewbox=-49.40,-25.33,-49.18,-25.65&bounded=1&q='+encodeURIComponent(qq);
+    const r=await fetch(u,{headers:{'Accept':'application/json'}});const j=await r.json();
+    if(!j.length){$('#addrRes').innerHTML='<p class="small">Não achei esse endereço. Tente só a rua e o número, ou o nome do bairro.</p>';return}
+    S._res=j.map(x=>{const a=x.address||{};const rua=[a.road,a.house_number].filter(Boolean).join(', ');
+      const nome=rua||x.name||x.display_name.split(',')[0];const bairro=a.suburb||a.neighbourhood||a.city_district||'';
+      return{nome:nome+(bairro?' — '+bairro:''),lat:+(+x.lat).toFixed(4),lon:+(+x.lon).toFixed(4)}});
+    $('#addrRes').innerHTML=S._res.map((x,i)=>`<button data-res="${i}">📍 ${esc(x.nome)}</button>`).join('');
+  }catch(e){$('#addrRes').innerHTML='<p class="small">Não consegui buscar agora. Verifique a internet ou use "Usar minha localização".</p>'}
+}
 
 /* ---------- INÍCIO ---------- */
 function whereHtml(items,{title,isBasket}){
   const tots=storeTotals(items);
-  const placeName=S.place==='todos'?'de Curitiba toda':`perto de ${esc(S.meta.places[S.place])}`;
+  const placeName=S.place==='todos'?'de Curitiba toda':`até ${S.raio} km de ${esc(placeLabel())}`;
   if(!tots.length)return`<h2>${title}</h2><p class="muted">Nenhum mercado pesquisado tem esses itens perto daqui.</p>`;
   const full=tots.filter(t=>t.n===items.length);
   const top=tots.slice(0,4);
@@ -420,10 +464,10 @@ function whereHtml(items,{title,isBasket}){
     <p class="hint">${isBasket?'Exemplo com uma cesta básica de '+items.length+' itens. Monte a sua lista para ver a sua conta.':'Sua lista de '+items.length+' itens'} · mercados ${placeName}.</p>
     <p class="say">${say}</p>
     ${top.map((t,j)=>{const s=st(t.i);return`<div class="store ${j===0?'best':''}"><div class="medal">${['🥇','🥈','🥉','4º'][j]}</div>
-      <div class="info"><div class="nm">${esc(s.rede)} <span class="muted" style="font-weight:600">${esc(s.bairro)}</span> ${s.atac?'<span class="tag">ATACAREJO</span>':''}</div>
+      <div class="info"><div class="nm">${esc(s.rede)} <span class="muted" style="font-weight:600">${esc(s.bairro)}</span> ${s.atac?'<span class="tag">ATACAREJO</span>':''}${s.est?' <span class="tag est">PREÇO ESTIMADO</span>':''}</div>
       <div class="meta">${esc(s.rua)}${km(t.i)?' · '+km(t.i):''}</div></div>
       <div class="tot"><b>${BRL.format(t.tot)}</b><small>${t.n===items.length?'tem todos':'tem '+t.n+' de '+items.length}</small></div></div>`}).join('')}
-    <p class="note">Preços vistos na pesquisa das últimas 3 semanas. ${top.some(t=>st(t.i).atac)?'Atacarejos podem exigir compra em maior quantidade para o menor preço. ':''}Confira na loja.</p>
+    <p class="note">Preços vistos na pesquisa das últimas 3 semanas. ${top.some(t=>st(t.i).atac)?'Atacarejos podem exigir compra em maior quantidade para o menor preço. ':''}${top.some(t=>st(t.i).est)?'<b>Preço estimado</b> = loja que a Prefeitura não pesquisa; usamos o preço das outras lojas da mesma rede. ':''}Confira na loja.</p>
     ${isBasket?'<button class="btn primary" id="useBasket">Usar esta cesta como minha lista</button>':''}`;
 }
 function renderInicio(){
@@ -445,17 +489,17 @@ function renderInicio(){
     <div class="rank">${lows.length?lows.map(p=>{const b=bestNear(p)||bestCity(p);return`<div class="r" data-id="${p.id}"><div class="t"><b>${esc(p.n)}</b><small>${esc(subTxt(p))}</small></div><div style="text-align:right"><b>${b?BRL.format(b[1]/100):''}</b><small class="muted" style="display:block;font-size:13px">${b?esc(stName(b[0])):''}</small></div></div>`}).join(''):'<p class="muted">Nenhum produto no menor preço do ano agora.</p>'}</div>`;
   // mercados perto
   const rank=Object.fromEntries(I.stores.map(([i,r,n])=>[i,r]));
-  const nearList=S.near.slice().sort((a,b)=>(st(a).km[S.place]??0)-(st(b).km[S.place]??0)).slice(0,S.place==='todos'?0:10);
-  const showRank=S.place==='todos'?I.stores.slice(0,12).map(x=>x[0]):nearList;
+  const nearList=S.near.slice().sort((a,b)=>(dist(a)??0)-(dist(b)??0)).slice(0,12);
+  const showRank=point()?nearList:I.stores.slice(0,12).map(x=>x[0]);
   const mx=Math.max(...showRank.map(i=>Math.abs(rank[i]??0)),5);
-  $('#nearCard').innerHTML=`<h2>🏪 ${S.place==='todos'?'Mercados mais baratos':'Mercados perto de você'}</h2>
+  $('#nearCard').innerHTML=`<h2>🏪 ${point()?'Mercados perto de '+esc(placeLabel()):'Mercados mais baratos'}</h2>
     <p class="hint">Comparado ao preço comum do mesmo produto (último mês). Azul = mais barato.</p>
     <div class="bars">${showRank.map(i=>{const r=rank[i];const s=st(i);
       const label=`${esc(s.rede)} <span class="muted">${esc(s.bairro)}</span>`;
-      if(r==null)return`<div class="bar"><span class="n">${label}</span><span class="small muted">poucos itens pesquisados</span><span class="v">${km(i)}</span></div>`;
+      if(r==null)return`<div class="bar"><span class="n">${label}</span><span class="small muted">${s.est?'não pesquisada (preço estimado)':'poucos itens pesquisados'}</span><span class="v">${km(i)}</span></div>`;
       const w=Math.min(Math.abs(r)/mx*50,50),left=r<0?50-w:50;
-      return`<div class="bar" title="${esc(stName(i))}"><span class="n">${label}</span><span class="track"><span class="mid"></span><span class="fill" style="left:${left}%;width:${Math.max(w,.8)}%;background:${r<0?'var(--cheap)':'var(--dear)'}"></span></span><span class="v">${r>0?'+':'−'}${N1.format(Math.abs(r))}%</span></div>`}).join('')}</div>
-    <p class="note">${S.place==='todos'?'':'Ordenados do mais perto para o mais longe. '}Atacarejos (Assaí, Atacadão…) costumam ser mais baratos, mas às vezes pedem compra em quantidade.</p>`;
+      return`<div class="bar" title="${esc(stName(i))}"><span class="n">${label}</span><span class="track"><span class="mid"></span><span class="fill" style="left:${left}%;width:${Math.max(w,.8)}%;background:${r<0?'var(--cheap)':'var(--dear)'}"></span></span><span class="v">${r>0?'+':'−'}${N1.format(Math.abs(r))}%${point()?'<br><span style="font-size:12px">'+km(i)+'</span>':''}</span></div>`}).join('')}</div>
+    <p class="note">${point()?'Ordenados do mais perto para o mais longe. ':''}Atacarejos (Assaí, Atacadão…) costumam ser mais baratos, mas às vezes pedem compra em quantidade.</p>`;
   // altas e quedas
   const opts=[{k:'v7',l:'1 semana'},{k:'v30',l:'1 mês'},{k:'v365',l:'1 ano'}];
   const draw=(key,box,dir)=>{const list=I[dir+S[key].slice(1)]||[];
@@ -501,7 +545,7 @@ function itemHtml(p,{remove}={}){
   return`<div class="item"><div class="main" data-id="${p.id}"><div class="nm">${esc(p.n)}</div>
     <div class="meta"><span class="br">${esc(brandTxt(p)||'')}</span>${p.b&&p.q?' · ':''}${esc(p.q)}</div>
     <div style="margin-top:4px">${pill(p[k])} <span class="small muted">em ${PER.find(x=>x.k===k).l}</span> ${p.low12?'<span class="tag low">🔥 MENOR DO ANO</span>':''}</div></div>
-    <div class="px" data-id="${p.id}">${b?`<div class="p">${BRL.format(b[1]/100)}</div><div class="m">${esc(stName(b[0]))}${b[3]?' <span class="tag promo">OFERTA</span>':''}</div>`:`<div class="m">não pesquisado perto</div>`}<div class="m muted">comum ${BRL.format(p.now)}</div></div>
+    <div class="px" data-id="${p.id}">${b?`<div class="p">${BRL.format(b[1]/100)}</div><div class="m">${esc(stName(b[0]))}${b[3]?' <span class="tag promo">OFERTA</span>':''}${isEst(b)?' <span class="tag est">ESTIMADO</span>':''}</div>`:`<div class="m">não pesquisado perto</div>`}<div class="m muted">comum ${BRL.format(p.now)}</div></div>
     <button class="add" data-add="${p.id}" aria-pressed="${on}" aria-label="${on?'Tirar da lista':'Pôr na lista'}">${on?'<b>✓</b>Na lista':'<b>＋</b>Lista'}</button></div>`;
 }
 function renderList(){
@@ -549,8 +593,8 @@ async function openProduct(id){
   $('#shBody').innerHTML=`
     <div class="meta" style="margin-bottom:10px"><span class="br">${esc(brandTxt(p))}</span>${p.b&&p.q?' · ':''}${esc(p.q)} · ${esc(m.cats[p.c]||'')}</div>
     ${p.low12?'<p><span class="tag low" style="font-size:14px">🔥 MENOR PREÇO EM 12 MESES</span></p>':''}
-    ${b?`<div class="hero"><div class="lbl">${S.place==='todos'?'Mais barato em Curitiba':'Mais barato perto de você'}</div><div class="big">${BRL.format(b[1]/100)}</div>
-      <div class="where">${esc(stName(b[0]))} ${b[3]?'<span class="tag promo">OFERTA</span>':''}</div><div class="small">${esc(st(b[0]).rua)}${km(b[0])?' · '+km(b[0]):''} · visto ${agoTxt(b[2])}. Confira na loja.</div></div>`
+    ${b?`<div class="hero"><div class="lbl">${point()?'Mais barato até '+S.raio+' km de '+esc(placeLabel()):'Mais barato em Curitiba'}</div><div class="big">${BRL.format(b[1]/100)}</div>
+      <div class="where">${esc(stName(b[0]))} ${b[3]?'<span class="tag promo">OFERTA</span>':''}${isEst(b)?' <span class="tag est">PREÇO ESTIMADO</span>':''}</div><div class="small">${esc(st(b[0]).rua)}${km(b[0])?' · '+km(b[0]):''} · ${isEst(b)?'loja não pesquisada pela Prefeitura; preço das outras lojas '+esc(st(b[0]).rede):'visto '+agoTxt(b[2])}. Confira na loja.</div></div>`
       :`<div class="hero"><div class="lbl">Nenhum mercado perto de você tem este produto na pesquisa.</div></div>`}
     <div class="kv">
       <div class="tile"><div class="lbl">Mais barato na cidade</div><div class="val">${bc?BRL.format(bc[1]/100):'—'}</div><div class="sm">${bc?esc(stName(bc[0])):''}${bc&&km(bc[0])?' · '+km(bc[0]):''}</div></div>
@@ -570,15 +614,15 @@ async function openProduct(id){
     </div>
     <div class="card">
       <h2>Preço em cada mercado</h2>
-      <div class="tools"><div class="seg" id="shStoresMode"><button data-v="near" aria-pressed="${S.place!=='todos'}">Perto de você</button><button data-v="all" aria-pressed="${S.place==='todos'}">Todos</button></div></div>
+      <div class="tools"><div class="seg" id="shStoresMode"><button data-v="near" aria-pressed="${!!point()}">Perto</button><button data-v="all" aria-pressed="${!point()}">Todos</button></div></div>
       <div class="tscroll"><table class="t" id="shStores"></table></div>
     </div>
     <div class="card"><h2>Dia da semana</h2><p class="hint">Só há pesquisa de segunda a sexta. Diferença média na mesma loja (último ano):</p><div id="shWeek"></div></div>`;
   updateCartUi();
   $('#shAddBig').onclick=()=>toggleCart(id);
   const drawStores=mode=>{const rows=p.s.filter(e=>mode==='all'||nearSet.has(e[0]));
-    $('#shStores').innerHTML=`<thead><tr><th>Mercado</th><th>Preço</th><th>Distância</th><th>Visto</th></tr></thead><tbody>`+(rows.length?rows.map((e,j)=>`<tr><td>${j===0?'🏆 ':''}<b>${esc(st(e[0]).rede)}</b> ${esc(st(e[0]).bairro)} ${e[3]?'<span class="tag promo">OFERTA</span>':''}${st(e[0]).atac?' <span class="tag">ATACAREJO</span>':''}</td><td><b>${BRL.format(e[1]/100)}</b></td><td>${km(e[0])||'—'}</td><td>${e[2]<=0?'último dia':fmtShort(addDays(last,-e[2]))}</td></tr>`).join(''):'<tr><td colspan="4" class="muted">Nenhum mercado perto tem este produto.</td></tr>')+'</tbody>'};
-  drawStores(S.place==='todos'?'all':'near');
+    $('#shStores').innerHTML=`<thead><tr><th>Mercado</th><th>Preço</th><th>Distância</th><th>Visto</th></tr></thead><tbody>`+(rows.length?rows.map((e,j)=>`<tr><td>${j===0?'🏆 ':''}<b>${esc(st(e[0]).rede)}</b> ${esc(st(e[0]).bairro)} ${e[3]?'<span class="tag promo">OFERTA</span>':''}${st(e[0]).atac?' <span class="tag">ATACAREJO</span>':''}${isEst(e)?' <span class="tag est">ESTIMADO</span>':''}</td><td><b>${BRL.format(e[1]/100)}</b></td><td>${km(e[0])||'—'}</td><td>${isEst(e)?'—':e[2]<=0?'último dia':fmtShort(addDays(last,-e[2]))}</td></tr>`).join(''):'<tr><td colspan="4" class="muted">Nenhum mercado perto tem este produto.</td></tr>')+'</tbody>'};
+  drawStores(point()?'near':'all');
   $('#shStoresMode').onclick=e=>{const bt=e.target.closest('button');if(!bt)return;$$('#shStoresMode button').forEach(x=>x.setAttribute('aria-pressed',x===bt));drawStores(bt.dataset.v)};
   const wk=p.w;
   if(wk){const vals=wk.filter(v=>v!=null),mx=Math.max(...vals.map(Math.abs),0.5),sp=Math.max(...vals)-Math.min(...vals),bi=wk.indexOf(Math.min(...vals));
@@ -639,11 +683,13 @@ async function renderLista(){
   const txt=listText(items,rows);S.txt=txt;$('#repText').textContent=txt;
   $('#btnWa').href='https://wa.me/?text='+encodeURIComponent(txt.length>3000?txt.slice(0,3000)+'…':txt);
 }
-const pageUrl=()=>{try{const u=new URL(location.href);u.hash='';u.searchParams.set('perto',S.place);return u.toString()}catch(e){return location.href}};
+const pageUrl=()=>{try{const u=new URL(location.href);u.hash='';['perto','lat','lon','nome'].forEach(x=>u.searchParams.delete(x));
+  if(S.place==='meu'&&S.loc){u.searchParams.set('lat',S.loc.lat.toFixed(3));u.searchParams.set('lon',S.loc.lon.toFixed(3));u.searchParams.set('nome',S.loc.nome.split(' — ').pop()||'endereço')}
+  else u.searchParams.set('perto',S.place);return u.toString()}catch(e){return location.href}};
 function listText(items,rows){
   const m=S.meta,L=[],tots=storeTotals(items),full=tots.filter(t=>t.n===items.length);
   L.push(`🛒 Minha lista — preços de ${fmtDate(m.last)} (Prefeitura de Curitiba)`);
-  if(S.place!=='todos')L.push(`📍 Mercados perto: ${m.places[S.place]}`);
+  if(S.place!=='todos')L.push(`📍 Mercados perto de: ${placeLabel()}`);
   L.push('');
   if(tots.length){const b=tots[0];L.push(`🏆 Mais barato: ${stName(b.i)} — ${BRL.format(b.tot)}${b.n<items.length?` (tem ${b.n} de ${items.length})`:''}`);
     if(full.length>=2)L.push(`   Economia de ${BRL.format(full[full.length-1].tot-full[0].tot)} em relação ao ${stName(full[full.length-1].i)}`);
@@ -658,7 +704,7 @@ function listText(items,rows){
 function weeklyText(){
   const m=S.meta,I=S.ins,L=[];
   L.push(`🛒 Resumo da semana — preços de ${fmtDate(m.last)}`);
-  if(S.place!=='todos')L.push(`📍 Perto de: ${m.places[S.place]}`);
+  if(S.place!=='todos')L.push(`📍 Perto de: ${placeLabel()}`);
   const c=I.counts.v7;L.push(`Em 1 semana: ${c.up} produtos subiram, ${c.down} caíram, ${c.eq} iguais.`);L.push('');
   const items=S.cart.length?S.cart.map(id=>S.byId[id]):basketItems();
   const tots=storeTotals(items);
@@ -708,6 +754,9 @@ function renderAll(){
 document.addEventListener('click',e=>{
   const add=e.target.closest('[data-add]');if(add){e.preventDefault();toggleCart(add.dataset.add);return}
   const pl=e.target.closest('[data-place]');if(pl){setPlace(pl.dataset.place);return}
+  if(e.target.closest('[data-addr]')){openAddr();return}
+  const rs=e.target.closest('[data-res]');if(rs){setLoc(S._res[+rs.dataset.res]);return}
+  const ra=e.target.closest('[data-raio]');if(ra){S.raio=+ra.dataset.raio;store('raio',S.raio);computeNear();renderAll();return}
   const tab=e.target.closest('nav.tabs button');if(tab){setTab(tab.dataset.tab);return}
   const go=e.target.closest('[data-goto]');if(go){setTab(go.dataset.goto);return}
   const pk=e.target.closest('[data-pick]');if(pk){const id=pk.dataset.pick,i=S.pick.indexOf(id);
@@ -719,6 +768,12 @@ document.addEventListener('click',e=>{
 });
 function useBasket(){basketItems().forEach(p=>{if(!S.cart.includes(p.id))S.cart.push(p.id)});S.pick=S.cart.slice(0,5);store('lista',S.cart);updateCartUi();setTab('lista');toast('Cesta básica posta na sua lista. Tire ou ponha itens à vontade.')}
 $('#btnUpdate').onclick=()=>refresh(true);
+$('#addrForm').addEventListener('submit',e=>{e.preventDefault();searchAddr($('#addrIn').value)});
+$('#addrClose').onclick=closeAddr;
+$('#geoBtn').onclick=()=>{if(!navigator.geolocation){toast('Este aparelho não informa a localização');return}
+  toast('Pegando sua localização…',2000);
+  navigator.geolocation.getCurrentPosition(p=>setLoc({nome:'Minha localização',lat:+p.coords.latitude.toFixed(4),lon:+p.coords.longitude.toFixed(4)}),
+    ()=>toast('Não foi possível pegar a localização. Digite o endereço.'),{enableHighAccuracy:false,timeout:15000})};
 let qT;$('#q').addEventListener('input',e=>{clearTimeout(qT);qT=setTimeout(()=>{S.q=e.target.value;S.shown=50;renderList()},150)});
 $('#sort').onchange=e=>{S.sort=e.target.value;S.shown=50;renderList()};
 $('#more').onclick=()=>{S.shown+=50;renderList()};
@@ -738,9 +793,10 @@ matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change',()=>rende
 
 /* ---------- início ---------- */
 (async()=>{
-  const qp=new URLSearchParams(location.search).get('perto');
-  const saved=recall('perto',null);
-  S.place=['barreirinha','altodaxv','todos'].includes(qp)?qp:(saved||'barreirinha');
+  const sp=new URLSearchParams(location.search),qp=sp.get('perto');
+  S.loc=recall('lugar',null);S.raio=recall('raio',5);
+  if(sp.get('lat')&&sp.get('lon')){S.loc={nome:sp.get('nome')||'Endereço do link',lat:+sp.get('lat'),lon:+sp.get('lon')};store('lugar',S.loc);S.place='meu'}
+  else{const saved=recall('perto',null);S.place=['barreirinha','altodaxv','todos','meu'].includes(qp)?qp:(saved||'barreirinha');if(S.place==='meu'&&!S.loc)S.place='barreirinha'}
   store('perto',S.place);
   await refresh(false);
   const h=(location.hash||'').slice(1);if(['produtos','lista'].includes(h))setTab(h);

@@ -1,85 +1,587 @@
 {
-  "_sobre": "Localização aproximada das lojas pesquisadas pelo Clique Economia (centro do bairro ou trecho da rua). Distâncias são em linha reta e servem só para ordenar 'perto de casa'. Corrija aqui se algo estiver errado; lojas novas sem entrada aqui usam o centro do bairro do endereço.",
-  "lugares": {
-    "barreirinha": {"nome": "Barreirinha", "lat": -25.369, "lon": -49.258},
-    "altodaxv": {"nome": "Alto da XV", "lat": -25.425, "lon": -49.253}
+ "_sobre": "Localização aproximada das lojas pesquisadas pelo Clique Economia (centro do bairro ou trecho da rua). Distâncias são em linha reta e servem só para ordenar 'perto de casa'. Corrija aqui se algo estiver errado; lojas novas sem entrada aqui usam o centro do bairro do endereço.",
+ "lugares": {
+  "barreirinha": {
+   "nome": "Barreirinha",
+   "lat": -25.369,
+   "lon": -49.258
   },
-  "lojas": {
-    "0":   {"bairro": "Boqueirão", "lat": -25.497, "lon": -49.238},
-    "113": {"bairro": "Bigorrilho", "lat": -25.437, "lon": -49.296},
-    "103": {"bairro": "Água Verde", "lat": -25.450, "lon": -49.281},
-    "30":  {"bairro": "Xaxim", "lat": -25.508, "lon": -49.260},
-    "159": {"bairro": "Tarumã", "lat": -25.417, "lon": -49.219},
-    "100": {"bairro": "Parolin", "lat": -25.459, "lon": -49.263},
-    "163": {"bairro": "Atuba", "lat": -25.383, "lon": -49.205},
-    "160": {"bairro": "Guaíra", "lat": -25.468, "lon": -49.267},
-    "158": {"bairro": "Portão", "lat": -25.493, "lon": -49.305},
-    "29":  {"bairro": "Xaxim", "lat": -25.510, "lon": -49.252},
-    "162": {"bairro": "Bairro Alto", "lat": -25.405, "lon": -49.214},
-    "42":  {"bairro": "Santa Felicidade", "lat": -25.412, "lon": -49.338},
-    "157": {"bairro": "Alto Boqueirão", "lat": -25.540, "lon": -49.230},
-    "107": {"bairro": "Portão", "lat": -25.470, "lon": -49.300},
-    "48":  {"bairro": "Rebouças", "lat": -25.452, "lon": -49.258},
-    "6":   {"bairro": "Sítio Cercado", "lat": -25.543, "lon": -49.268},
-    "86":  {"bairro": "Atuba", "lat": -25.391, "lon": -49.215},
-    "45":  {"bairro": "Butiatuvinha", "lat": -25.403, "lon": -49.357},
-    "84":  {"bairro": "Boa Vista", "lat": -25.385, "lon": -49.255},
-    "40":  {"bairro": "Cidade Industrial", "lat": -25.495, "lon": -49.335},
-    "94":  {"bairro": "Pilarzinho", "lat": -25.393, "lon": -49.283},
-    "22":  {"bairro": "Novo Mundo", "lat": -25.487, "lon": -49.288},
-    "28":  {"bairro": "Xaxim", "lat": -25.513, "lon": -49.250},
-    "109": {"bairro": "Campo Comprido", "lat": -25.447, "lon": -49.325},
-    "76":  {"bairro": "Uberaba", "lat": -25.477, "lon": -49.222},
-    "90":  {"bairro": "São Lourenço", "lat": -25.388, "lon": -49.267, "obs": "a fonte diz Novo Mundo, mas o nº 4556 da Mateus Leme fica no São Lourenço"},
-    "104": {"bairro": "Vila Izabel", "lat": -25.455, "lon": -49.296},
-    "44":  {"bairro": "Santa Felicidade", "lat": -25.403, "lon": -49.326},
-    "35":  {"bairro": "Xaxim", "lat": -25.515, "lon": -49.268},
-    "2":   {"bairro": "Sítio Cercado", "lat": -25.535, "lon": -49.262},
-    "38":  {"bairro": "Cidade Industrial", "lat": -25.505, "lon": -49.335},
-    "72":  {"bairro": "Tarumã", "lat": -25.424, "lon": -49.237},
-    "85":  {"bairro": "Atuba", "lat": -25.386, "lon": -49.212},
-    "66":  {"bairro": "Uberaba", "lat": -25.487, "lon": -49.215},
-    "26":  {"bairro": "Boqueirão", "lat": -25.502, "lon": -49.243},
-    "25":  {"bairro": "Boqueirão", "lat": -25.497, "lon": -49.247},
-    "75":  {"bairro": "Uberaba", "lat": -25.490, "lon": -49.225},
-    "41":  {"bairro": "Cidade Industrial", "lat": -25.500, "lon": -49.345},
-    "128": {"bairro": "Cajuru", "lat": -25.448, "lon": -49.215},
-    "88":  {"bairro": "Abranches", "lat": -25.372, "lon": -49.272},
-    "96":  {"bairro": "Cachoeira", "lat": -25.354, "lon": -49.268},
-    "78":  {"bairro": "Bairro Alto", "lat": -25.403, "lon": -49.200},
-    "5":   {"bairro": "Sítio Cercado", "lat": -25.535, "lon": -49.270},
-    "27":  {"bairro": "Alto Boqueirão", "lat": -25.525, "lon": -49.245},
-    "124": {"bairro": "Alto Boqueirão", "lat": -25.522, "lon": -49.255},
-    "80":  {"bairro": "Bairro Alto", "lat": -25.413, "lon": -49.200},
-    "136": {"bairro": "Boqueirão", "lat": -25.497, "lon": -49.240, "obs": "bairro estimado"},
-    "150": {"bairro": "Novo Mundo", "lat": -25.495, "lon": -49.290},
-    "115": {"bairro": "Bigorrilho", "lat": -25.430, "lon": -49.298},
-    "106": {"bairro": "Novo Mundo", "lat": -25.495, "lon": -49.300},
-    "73":  {"bairro": "Tarumã", "lat": -25.423, "lon": -49.233},
-    "43":  {"bairro": "Santa Felicidade", "lat": -25.410, "lon": -49.338, "obs": "a fonte diz Novo Mundo; a Av. Toaldo Túlio fica em Santa Felicidade"},
-    "110": {"bairro": "Campo Comprido", "lat": -25.445, "lon": -49.340},
-    "130": {"bairro": "Cidade Industrial", "lat": -25.470, "lon": -49.350},
-    "70":  {"bairro": "Capão da Imbuia", "lat": -25.442, "lon": -49.220},
-    "89":  {"bairro": "Abranches", "lat": -25.368, "lon": -49.274},
-    "111": {"bairro": "Novo Mundo", "lat": -25.485, "lon": -49.298}
+  "altodaxv": {
+   "nome": "Alto da XV",
+   "lat": -25.425,
+   "lon": -49.253
+  }
+ },
+ "lojas": {
+  "0": {
+   "bairro": "Boqueirão",
+   "lat": -25.497,
+   "lon": -49.238
   },
-  "bairros": {
-    "Abranches": [-25.371, -49.276], "Água Verde": [-25.451, -49.282], "Ahú": [-25.405, -49.262],
-    "Alto Boqueirão": [-25.530, -49.240], "Alto da Glória": [-25.420, -49.262], "Alto da XV": [-25.425, -49.253],
-    "Atuba": [-25.386, -49.210], "Bacacheri": [-25.398, -49.235], "Bairro Alto": [-25.407, -49.205],
-    "Barreirinha": [-25.369, -49.258], "Batel": [-25.442, -49.290], "Bigorrilho": [-25.434, -49.296],
-    "Boa Vista": [-25.388, -49.250], "Bom Retiro": [-25.410, -49.278], "Boqueirão": [-25.500, -49.242],
-    "Butiatuvinha": [-25.403, -49.355], "Cabral": [-25.408, -49.253], "Cachoeira": [-25.354, -49.268],
-    "Cajuru": [-25.452, -49.215], "Campo Comprido": [-25.447, -49.335], "Capão da Imbuia": [-25.440, -49.218],
-    "Centro": [-25.430, -49.272], "Centro Cívico": [-25.414, -49.268], "Cidade Industrial": [-25.495, -49.340],
-    "Cristo Rei": [-25.437, -49.245], "Guaíra": [-25.470, -49.272], "Hauer": [-25.480, -49.250],
-    "Hugo Lange": [-25.418, -49.240], "Jardim Botânico": [-25.443, -49.243], "Jardim Social": [-25.420, -49.228],
-    "Juvevê": [-25.415, -49.255], "Mercês": [-25.420, -49.290], "Novo Mundo": [-25.490, -49.293],
-    "Parolin": [-25.460, -49.265], "Pilarzinho": [-25.391, -49.287], "Portão": [-25.475, -49.300],
-    "Rebouças": [-25.448, -49.262], "Santa Cândida": [-25.365, -49.238], "Santa Felicidade": [-25.405, -49.330],
-    "São Lourenço": [-25.388, -49.267], "Sítio Cercado": [-25.540, -49.265], "Tarumã": [-25.420, -49.222],
-    "Tingui": [-25.380, -49.240], "Uberaba": [-25.483, -49.222], "Vila Izabel": [-25.459, -49.296],
-    "Xaxim": [-25.508, -49.262]
+  "113": {
+   "bairro": "Bigorrilho",
+   "lat": -25.437,
+   "lon": -49.296
   },
-  "atacarejos": ["Assaí", "Atacadão", "Armazém da Maria", "Max Atacadista", "Super Dia"]
+  "103": {
+   "bairro": "Água Verde",
+   "lat": -25.45,
+   "lon": -49.281
+  },
+  "30": {
+   "bairro": "Xaxim",
+   "lat": -25.508,
+   "lon": -49.26
+  },
+  "159": {
+   "bairro": "Tarumã",
+   "lat": -25.417,
+   "lon": -49.219
+  },
+  "100": {
+   "bairro": "Parolin",
+   "lat": -25.459,
+   "lon": -49.263
+  },
+  "163": {
+   "bairro": "Atuba",
+   "lat": -25.383,
+   "lon": -49.205
+  },
+  "160": {
+   "bairro": "Guaíra",
+   "lat": -25.468,
+   "lon": -49.267
+  },
+  "158": {
+   "bairro": "Portão",
+   "lat": -25.493,
+   "lon": -49.305
+  },
+  "29": {
+   "bairro": "Xaxim",
+   "lat": -25.51,
+   "lon": -49.252
+  },
+  "162": {
+   "bairro": "Bairro Alto",
+   "lat": -25.405,
+   "lon": -49.214
+  },
+  "42": {
+   "bairro": "Santa Felicidade",
+   "lat": -25.412,
+   "lon": -49.338
+  },
+  "157": {
+   "bairro": "Alto Boqueirão",
+   "lat": -25.54,
+   "lon": -49.23
+  },
+  "107": {
+   "bairro": "Portão",
+   "lat": -25.47,
+   "lon": -49.3
+  },
+  "48": {
+   "bairro": "Rebouças",
+   "lat": -25.452,
+   "lon": -49.258
+  },
+  "6": {
+   "bairro": "Sítio Cercado",
+   "lat": -25.543,
+   "lon": -49.268
+  },
+  "86": {
+   "bairro": "Atuba",
+   "lat": -25.391,
+   "lon": -49.215
+  },
+  "45": {
+   "bairro": "Butiatuvinha",
+   "lat": -25.403,
+   "lon": -49.357
+  },
+  "84": {
+   "bairro": "Boa Vista",
+   "lat": -25.385,
+   "lon": -49.255
+  },
+  "40": {
+   "bairro": "Cidade Industrial",
+   "lat": -25.495,
+   "lon": -49.335
+  },
+  "94": {
+   "bairro": "Pilarzinho",
+   "lat": -25.393,
+   "lon": -49.283
+  },
+  "22": {
+   "bairro": "Novo Mundo",
+   "lat": -25.487,
+   "lon": -49.288
+  },
+  "28": {
+   "bairro": "Xaxim",
+   "lat": -25.513,
+   "lon": -49.25
+  },
+  "109": {
+   "bairro": "Campo Comprido",
+   "lat": -25.447,
+   "lon": -49.325
+  },
+  "76": {
+   "bairro": "Uberaba",
+   "lat": -25.477,
+   "lon": -49.222
+  },
+  "90": {
+   "bairro": "São Lourenço",
+   "lat": -25.388,
+   "lon": -49.267,
+   "obs": "a fonte diz Novo Mundo, mas o nº 4556 da Mateus Leme fica no São Lourenço"
+  },
+  "104": {
+   "bairro": "Vila Izabel",
+   "lat": -25.455,
+   "lon": -49.296
+  },
+  "44": {
+   "bairro": "Santa Felicidade",
+   "lat": -25.403,
+   "lon": -49.326
+  },
+  "35": {
+   "bairro": "Xaxim",
+   "lat": -25.515,
+   "lon": -49.268
+  },
+  "2": {
+   "bairro": "Sítio Cercado",
+   "lat": -25.535,
+   "lon": -49.262
+  },
+  "38": {
+   "bairro": "Cidade Industrial",
+   "lat": -25.505,
+   "lon": -49.335
+  },
+  "72": {
+   "bairro": "Tarumã",
+   "lat": -25.424,
+   "lon": -49.237
+  },
+  "85": {
+   "bairro": "Atuba",
+   "lat": -25.386,
+   "lon": -49.212
+  },
+  "66": {
+   "bairro": "Uberaba",
+   "lat": -25.487,
+   "lon": -49.215
+  },
+  "26": {
+   "bairro": "Boqueirão",
+   "lat": -25.502,
+   "lon": -49.243
+  },
+  "25": {
+   "bairro": "Boqueirão",
+   "lat": -25.497,
+   "lon": -49.247
+  },
+  "75": {
+   "bairro": "Uberaba",
+   "lat": -25.49,
+   "lon": -49.225
+  },
+  "41": {
+   "bairro": "Cidade Industrial",
+   "lat": -25.5,
+   "lon": -49.345
+  },
+  "128": {
+   "bairro": "Cajuru",
+   "lat": -25.448,
+   "lon": -49.215
+  },
+  "88": {
+   "bairro": "Abranches",
+   "lat": -25.372,
+   "lon": -49.272
+  },
+  "96": {
+   "bairro": "Cachoeira",
+   "lat": -25.354,
+   "lon": -49.268
+  },
+  "78": {
+   "bairro": "Bairro Alto",
+   "lat": -25.403,
+   "lon": -49.2
+  },
+  "5": {
+   "bairro": "Sítio Cercado",
+   "lat": -25.535,
+   "lon": -49.27
+  },
+  "27": {
+   "bairro": "Alto Boqueirão",
+   "lat": -25.525,
+   "lon": -49.245
+  },
+  "124": {
+   "bairro": "Alto Boqueirão",
+   "lat": -25.522,
+   "lon": -49.255
+  },
+  "80": {
+   "bairro": "Bairro Alto",
+   "lat": -25.413,
+   "lon": -49.2
+  },
+  "136": {
+   "bairro": "Boqueirão",
+   "lat": -25.497,
+   "lon": -49.24,
+   "obs": "bairro estimado"
+  },
+  "150": {
+   "bairro": "Novo Mundo",
+   "lat": -25.495,
+   "lon": -49.29
+  },
+  "115": {
+   "bairro": "Bigorrilho",
+   "lat": -25.43,
+   "lon": -49.298
+  },
+  "106": {
+   "bairro": "Novo Mundo",
+   "lat": -25.495,
+   "lon": -49.3
+  },
+  "73": {
+   "bairro": "Tarumã",
+   "lat": -25.423,
+   "lon": -49.233
+  },
+  "43": {
+   "bairro": "Santa Felicidade",
+   "lat": -25.41,
+   "lon": -49.338,
+   "obs": "a fonte diz Novo Mundo; a Av. Toaldo Túlio fica em Santa Felicidade"
+  },
+  "110": {
+   "bairro": "Campo Comprido",
+   "lat": -25.445,
+   "lon": -49.34
+  },
+  "130": {
+   "bairro": "Cidade Industrial",
+   "lat": -25.47,
+   "lon": -49.35
+  },
+  "70": {
+   "bairro": "Capão da Imbuia",
+   "lat": -25.442,
+   "lon": -49.22
+  },
+  "89": {
+   "bairro": "Abranches",
+   "lat": -25.368,
+   "lon": -49.274
+  },
+  "111": {
+   "bairro": "Novo Mundo",
+   "lat": -25.485,
+   "lon": -49.298
+  }
+ },
+ "bairros": {
+  "Abranches": [
+   -25.371,
+   -49.276
+  ],
+  "Água Verde": [
+   -25.451,
+   -49.282
+  ],
+  "Ahú": [
+   -25.405,
+   -49.262
+  ],
+  "Alto Boqueirão": [
+   -25.53,
+   -49.24
+  ],
+  "Alto da Glória": [
+   -25.42,
+   -49.262
+  ],
+  "Alto da XV": [
+   -25.425,
+   -49.253
+  ],
+  "Atuba": [
+   -25.386,
+   -49.21
+  ],
+  "Bacacheri": [
+   -25.398,
+   -49.235
+  ],
+  "Bairro Alto": [
+   -25.407,
+   -49.205
+  ],
+  "Barreirinha": [
+   -25.369,
+   -49.258
+  ],
+  "Batel": [
+   -25.442,
+   -49.29
+  ],
+  "Bigorrilho": [
+   -25.434,
+   -49.296
+  ],
+  "Boa Vista": [
+   -25.388,
+   -49.25
+  ],
+  "Bom Retiro": [
+   -25.41,
+   -49.278
+  ],
+  "Boqueirão": [
+   -25.5,
+   -49.242
+  ],
+  "Butiatuvinha": [
+   -25.403,
+   -49.355
+  ],
+  "Cabral": [
+   -25.408,
+   -49.253
+  ],
+  "Cachoeira": [
+   -25.354,
+   -49.268
+  ],
+  "Cajuru": [
+   -25.452,
+   -49.215
+  ],
+  "Campo Comprido": [
+   -25.447,
+   -49.335
+  ],
+  "Capão da Imbuia": [
+   -25.44,
+   -49.218
+  ],
+  "Centro": [
+   -25.43,
+   -49.272
+  ],
+  "Centro Cívico": [
+   -25.414,
+   -49.268
+  ],
+  "Cidade Industrial": [
+   -25.495,
+   -49.34
+  ],
+  "Cristo Rei": [
+   -25.437,
+   -49.245
+  ],
+  "Guaíra": [
+   -25.47,
+   -49.272
+  ],
+  "Hauer": [
+   -25.48,
+   -49.25
+  ],
+  "Hugo Lange": [
+   -25.418,
+   -49.24
+  ],
+  "Jardim Botânico": [
+   -25.443,
+   -49.243
+  ],
+  "Jardim Social": [
+   -25.42,
+   -49.228
+  ],
+  "Juvevê": [
+   -25.415,
+   -49.255
+  ],
+  "Mercês": [
+   -25.42,
+   -49.29
+  ],
+  "Novo Mundo": [
+   -25.49,
+   -49.293
+  ],
+  "Parolin": [
+   -25.46,
+   -49.265
+  ],
+  "Pilarzinho": [
+   -25.391,
+   -49.287
+  ],
+  "Portão": [
+   -25.475,
+   -49.3
+  ],
+  "Rebouças": [
+   -25.448,
+   -49.262
+  ],
+  "Santa Cândida": [
+   -25.365,
+   -49.238
+  ],
+  "Santa Felicidade": [
+   -25.405,
+   -49.33
+  ],
+  "São Lourenço": [
+   -25.388,
+   -49.267
+  ],
+  "Sítio Cercado": [
+   -25.54,
+   -49.265
+  ],
+  "Tarumã": [
+   -25.42,
+   -49.222
+  ],
+  "Tingui": [
+   -25.38,
+   -49.24
+  ],
+  "Uberaba": [
+   -25.483,
+   -49.222
+  ],
+  "Vila Izabel": [
+   -25.459,
+   -49.296
+  ],
+  "Xaxim": [
+   -25.508,
+   -49.262
+  ],
+  "Fazendinha": [
+   -25.48,
+   -49.335
+  ],
+  "Tatuquara": [
+   -25.565,
+   -49.33
+  ],
+  "Campo de Santana": [
+   -25.585,
+   -49.32
+  ],
+  "Ganchinho": [
+   -25.565,
+   -49.255
+  ],
+  "Pinheirinho": [
+   -25.52,
+   -49.295
+  ],
+  "Capão Raso": [
+   -25.505,
+   -49.295
+  ],
+  "Jardim das Américas": [
+   -25.455,
+   -49.23
+  ],
+  "São Braz": [
+   -25.42,
+   -49.335
+  ],
+  "Fanny": [
+   -25.485,
+   -49.265
+  ],
+  "Cidade Industrial De Curitiba": [
+   -25.495,
+   -49.34
+  ]
+ },
+ "atacarejos": [
+  "Assaí",
+  "Atacadão",
+  "Armazém da Maria",
+  "Max Atacadista",
+  "Max Muffato",
+  "Super Dia",
+  "Jumbo Atacadista",
+  "Mig Atacado e Varejo"
+ ],
+ "enderecos": {
+  "Avenida Anita Garibaldi, 4654 - Curitiba/PR": {
+   "bairro": "Barreirinha",
+   "lat": -25.367,
+   "lon": -49.263
+  },
+  "Avenida Monteiro Tourinho, 478 - Tingui - Curitiba/PR": {
+   "bairro": "Tingui",
+   "lat": -25.39,
+   "lon": -49.237
+  },
+  "Rua Alberto Folloni 420 - Juvevê - Curitiba/PR": {
+   "bairro": "Juvevê",
+   "lat": -25.413,
+   "lon": -49.259
+  },
+  "Avenida Paraná 1250 - Cabral - Curitiba/PR": {
+   "bairro": "Cabral",
+   "lat": -25.407,
+   "lon": -49.249
+  },
+  "Rua Deputado Joaquim José Pedrosa - Cabral - Curitiba/PR": {
+   "bairro": "Cabral"
+  },
+  "Avenida Caviúna - Bairro Alto - Curitiba/PR": {
+   "bairro": "Bairro Alto"
+  },
+  "Avenida Vereador Toaldo Túlio - São Braz - Curitiba/PR": {
+   "bairro": "São Braz",
+   "lat": -25.42,
+   "lon": -49.334
+  },
+  "Avenida Presidente Wenceslau Braz - Parolin - Curitiba/PR": {
+   "bairro": "Parolin"
+  }
+ },
+ "extras": [
+  {
+   "rede": "Festval",
+   "rua": "Rua Padre Germano Mayer, 1502 - Hugo Lange - Curitiba/PR",
+   "bairro": "Hugo Lange (Itupava)",
+   "lat": -25.4215,
+   "lon": -49.255,
+   "obs": "Loja não pesquisada pela Prefeitura: preço estimado pelas outras lojas Festval."
+  }
+ ]
 }
