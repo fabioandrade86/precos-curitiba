@@ -1,0 +1,66 @@
+name: Atualizar preços
+
+on:
+  schedule:
+    # Horários em UTC (Curitiba = UTC-3). O espelho da UFPR publica o arquivo do dia por volta de 01h.
+    - cron: "40 4 * * 2-6"    # 01:40 em Curitiba, terça a sábado (traz o dia útil anterior)
+    - cron: "10 13 * * 1-5"   # 10:10, segunda a sexta (nova tentativa)
+    - cron: "10 20 * * 1-5"   # 17:10, segunda a sexta (nova tentativa)
+  workflow_dispatch: {}      # botão "Run workflow" no GitHub para atualizar na hora
+  push:
+    branches: [main]
+    paths: ["site/**", "scripts/**", "dados/lojas.json", ".github/workflows/**"]
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: precos
+  cancel-in-progress: false
+
+jobs:
+  atualizar:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar dependências
+        run: pip install --quiet pandas numpy
+
+      - name: Baixar preços novos da Prefeitura
+        id: baixar
+        run: python scripts/baixar.py
+
+      - name: Gerar dados da página (valida o arquivo novo)
+        if: steps.baixar.outputs.novos != '0' || github.event_name != 'schedule'
+        run: python scripts/build_data.py
+
+      - name: Guardar os arquivos novos no repositório
+        if: steps.baixar.outputs.novos != '0'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add dados/diarios
+          git commit -m "Preços de $(ls dados/diarios | tail -1 | cut -c1-10)"
+          git push
+
+      - uses: actions/configure-pages@v5
+        if: steps.baixar.outputs.novos != '0' || github.event_name != 'schedule'
+
+      - uses: actions/upload-pages-artifact@v3
+        if: steps.baixar.outputs.novos != '0' || github.event_name != 'schedule'
+        with:
+          path: site
+
+      - id: deploy
+        uses: actions/deploy-pages@v4
+        if: steps.baixar.outputs.novos != '0' || github.event_name != 'schedule'
