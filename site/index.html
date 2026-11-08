@@ -92,6 +92,11 @@ nav.tabs button[aria-selected="false"] .count{background:var(--accent);color:#ff
 .search{flex:1 1 240px;min-height:52px;border:2px solid var(--border);border-radius:12px;background:var(--surface);padding:0 14px;font-size:18px}
 select.sel{min-height:50px;border:1px solid var(--border);border-radius:12px;background:var(--surface);padding:0 10px;font-size:16px}
 .chips{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;margin-bottom:6px}
+.sugg{background:var(--surface);border:1px solid var(--border);border-radius:14px;margin:-2px 0 10px;overflow:hidden}
+.sugg .h{font-size:14px;color:var(--ink2);padding:8px 12px 4px;font-weight:700}
+.sugg button{display:flex;gap:10px;width:100%;text-align:left;border:0;border-top:1px solid var(--grid);background:transparent;padding:10px 12px;align-items:center;font-size:16px}
+.sugg button .t{flex:1;min-width:0}.sugg button small{display:block;color:var(--ink2);font-size:14px}
+.sugg mark{background:var(--band);color:inherit;border-radius:3px;padding:0 1px}
 .chips .chip{font-size:15px;min-height:40px}
 .list{display:flex;flex-direction:column;gap:8px}
 .item{display:flex;gap:10px;align-items:center;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:12px}
@@ -231,15 +236,16 @@ input[type=date]{min-height:46px;border:1px solid var(--border);border-radius:10
   <!-- PRODUTOS -->
   <section id="tab-produtos" class="hidden">
     <div class="tools">
-      <input class="search" id="q" type="search" placeholder="Buscar: arroz, café, leite…" autocomplete="off" enterkeyhint="search">
+      <input class="search" id="q" type="search" placeholder="Buscar: café melitta, arroz 5kg, leite…" autocomplete="off" enterkeyhint="search">
       <select class="sel" id="sort" aria-label="Ordenar">
-        <option value="nome">Ordem: nome</option>
+        <option value="nome">Ordem: nome / mais parecido</option>
         <option value="barato">Mais barato perto</option>
         <option value="alta">O que mais subiu</option>
         <option value="queda">O que mais caiu</option>
         <option value="low">Menor preço em 12 meses</option>
       </select>
     </div>
+    <div class="sugg hidden" id="sugg"></div>
     <div class="chips" id="catChips"></div>
     <div class="tools"><span class="small muted">Mudança em:</span><div class="seg" data-seg="listPeriod"></div></div>
     <div class="list" id="prodList"></div>
@@ -367,6 +373,7 @@ async function loadAll(){
   S.cart=recall('lista',[]).filter(id=>S.byId[id]);
   S.pick=S.pick.filter(id=>S.cart.includes(id));
   if(!S.repBase)S.repBase=meta.base;
+  indexProducts();if(S.q)S.searchRes=search(S.q);
   computeNear();
 }
 function computeNear(){
@@ -531,9 +538,80 @@ function renderChips(){
   const opts=[['all','Todos',S.prods.length],...Object.keys(counts).sort((a,b)=>(a==0)-(b==0)||a-b).map(c=>[c,S.meta.cats[c]||'Outros',counts[c]])];
   $('#catChips').innerHTML=opts.map(([k,l,n])=>`<button class="chip" data-c="${k}" aria-pressed="${String(S.cat)===String(k)}">${esc(l)}</button>`).join('');
 }
+/* ---------- busca inteligente ---------- */
+const STOP=new Set(['de','da','do','das','dos','a','o','as','os','e','com','sem','em','para','p','c','tipo','marca','un','und']);
+const SYN={refri:'refrigerante',refris:'refrigerante',coca:'cola',margarina:'margarina',papel:'papel',hig:'higienico',higienico:'higienico',sabao:'sabao',po:'po',
+  bolacha:'biscoito',bolachas:'biscoito',macarrao:'macarrao',massa:'macarrao',miojo:'instantaneo',nescau:'achocolatado',toddy:'achocolatado',
+  presunto:'presunto',mussarela:'mucarela',mozarela:'mucarela',muzzarela:'mucarela',file:'file',frango:'frango',carne:'carne',
+  detergente:'detergente',amaciante:'amaciante',cerveja:'cerveja',suco:'suco',agua:'agua',leite:'leite',ovo:'ovo',ovos:'ovo',
+  litro:'litro',litros:'litro',l:'litro',lt:'litro',kg:'kg',kilo:'kg',quilo:'kg',g:'g',gr:'g',grama:'g',gramas:'g',ml:'ml'};
+function toks(str){
+  const out=[];
+  norm(str).replace(/[^a-z0-9 ]+/g,' ').replace(/(\d)([a-z])/g,'$1 $2').split(/\s+/).forEach(w=>{
+    if(!w||STOP.has(w))return;
+    let t=SYN[w]||w;
+    if(t.length>3&&t.endsWith('s')&&!/\d/.test(t))t=t.endsWith('oes')||t.endsWith('aes')?t.slice(0,-3)+'ao':t.slice(0,-1);
+    out.push(t);
+  });
+  return out;
+}
+function lev(a,b,max){
+  if(Math.abs(a.length-b.length)>max)return max+1;
+  let prev=Array.from({length:b.length+1},(_,i)=>i);
+  for(let i=1;i<=a.length;i++){const cur=[i];let best=i;
+    for(let j=1;j<=b.length;j++){const c=Math.min(prev[j]+1,cur[j-1]+1,prev[j-1]+(a[i-1]===b[j-1]?0:1));cur.push(c);if(c<best)best=c}
+    if(best>max)return max+1;prev=cur}
+  return prev[b.length];
+}
+function indexProducts(){
+  S.prods.forEach(p=>{p._t=[...toks(p.n).map(t=>[t,3]),...toks(p.b==='marca mais barata'?'':p.b).map(t=>[t,2.5]),...toks(p.q).map(t=>[t,1]),...toks(S.meta.cats[p.c]||'').map(t=>[t,0.5])]});
+}
+/* nota de 0 a 1 para uma palavra digitada contra as palavras do produto */
+function tokScore(q,ptoks){
+  let best=0;
+  for(const [t,w] of ptoks){
+    let sc=0;
+    if(t===q)sc=1;
+    else if(q.length>=2&&t.startsWith(q))sc=0.92;
+    else if(q.length>=4&&t.includes(q))sc=0.8;
+    else if(q.length>=4&&!/\d/.test(q)){const d=lev(q,t.length>q.length+2?t.slice(0,q.length+1):t,q.length>=7?2:1);if(d<=(q.length>=7?2:1))sc=d===1?0.75:0.6}
+    if(sc){sc*=w/3;if(sc>best)best=sc}
+  }
+  return best;
+}
+function search(q){
+  const qt=toks(q);if(!qt.length)return null;
+  const res=[];
+  for(const p of S.prods){let tot=0,hit=0;
+    for(const t of qt){const sc=tokScore(t,p._t);if(sc>0){hit++;tot+=sc}}
+    if(!hit)continue;
+    const first=p._t.length?p._t[0][0]:'';const lead=qt.some(t=>first===t||(t.length>=3&&first.startsWith(t)))?0.3:0;
+    res.push({p,all:hit===qt.length,score:tot/qt.length+(hit===qt.length?1:0)+lead+Math.min(p.ns,40)/400})}
+  res.sort((a,b)=>b.score-a.score);
+  return{full:res.filter(r=>r.all),partial:res.filter(r=>!r.all&&r.score>=0.45),qt};
+}
+function hl(text,qt){let h=esc(text);qt.forEach(t=>{if(t.length<2)return;const re=new RegExp('('+t.split('').map(c=>c.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'[\u0300-\u036f]?').join('')+')','gi');
+  h=h.replace(re,'<mark>$1</mark>')});return h}
+function renderSugg(){
+  const box=$('#sugg');
+  if(!S.q.trim()){box.classList.add('hidden');return}
+  const r=S.searchRes;
+  if(!r){box.classList.add('hidden');return}
+  let list=r.full.slice(0,5),title='Sugestões';
+  if(!list.length){list=r.partial.slice(0,6);title=list.length?'Não achei exatamente. Você quis dizer:':''}
+  if(!list.length){box.innerHTML='<div class="h">Nenhum produto parecido. Tente outra palavra.</div>';box.classList.remove('hidden');return}
+  box.innerHTML=`<div class="h">${title}</div>`+list.map(({p})=>{const b=bestNear(p)||bestCity(p);
+    return`<button data-id="${p.id}"><span class="t">${hl(p.n,r.qt)} <b>${hl(brandTxt(p),r.qt)}</b><small>${esc(p.q)}${b?' · '+BRL.format(b[1]/100)+' no '+esc(stName(b[0])):''}</small></span><span>›</span></button>`}).join('');
+  box.classList.remove('hidden');
+}
 function filtered(){
-  const q=norm(S.q).split(/\s+/).filter(Boolean),k=S.listPeriod;
-  let L=S.prods.filter(p=>(S.cat==='all'||String(p.c)===String(S.cat))&&(!q.length||q.every(w=>norm(p.n+' '+p.b+' '+p.q).includes(w))));
+  const k=S.listPeriod,inCat=p=>S.cat==='all'||String(p.c)===String(S.cat);
+  let L;
+  if(S.q.trim()){
+    const r=S.searchRes||{full:[],partial:[]};
+    L=(r.full.length?r.full:r.partial).map(x=>x.p).filter(inCat);
+    if(S.sort==='nome')return L;
+  }else L=S.prods.filter(inCat);
   if(S.sort==='alta')L=L.filter(p=>p[k]!=null).sort((a,b)=>b[k]-a[k]);
   else if(S.sort==='queda')L=L.filter(p=>p[k]!=null).sort((a,b)=>a[k]-b[k]);
   else if(S.sort==='low')L=L.filter(p=>p.low12);
@@ -550,7 +628,8 @@ function itemHtml(p,{remove}={}){
 }
 function renderList(){
   const L=filtered();
-  $('#prodList').innerHTML=L.slice(0,S.shown).map(p=>itemHtml(p)).join('')||'<div class="empty">Nenhum produto encontrado. Tente outra palavra (sem acento também funciona).</div>';
+  const fuzzy=S.q.trim()&&S.searchRes&&!S.searchRes.full.length&&L.length;
+  $('#prodList').innerHTML=(fuzzy?'<p class="small muted" style="margin:0 0 4px">Mostrando os produtos mais parecidos com o que você digitou.</p>':'')+(L.slice(0,S.shown).map(p=>itemHtml(p)).join('')||'<div class="empty">Nenhum produto encontrado. Tente outra palavra.</div>');
   $('#more').classList.toggle('hidden',L.length<=S.shown);$('#more').textContent=`Mostrar mais (${L.length-S.shown})`;
 }
 
@@ -774,7 +853,8 @@ $('#geoBtn').onclick=()=>{if(!navigator.geolocation){toast('Este aparelho não i
   toast('Pegando sua localização…',2000);
   navigator.geolocation.getCurrentPosition(p=>setLoc({nome:'Minha localização',lat:+p.coords.latitude.toFixed(4),lon:+p.coords.longitude.toFixed(4)}),
     ()=>toast('Não foi possível pegar a localização. Digite o endereço.'),{enableHighAccuracy:false,timeout:15000})};
-let qT;$('#q').addEventListener('input',e=>{clearTimeout(qT);qT=setTimeout(()=>{S.q=e.target.value;S.shown=50;renderList()},150)});
+let qT;$('#q').addEventListener('input',e=>{clearTimeout(qT);qT=setTimeout(()=>{S.q=e.target.value;S.searchRes=search(S.q);S.shown=50;renderSugg();renderList()},120)});
+$('#q').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();$('#sugg').classList.add('hidden');e.target.blur()}});
 $('#sort').onchange=e=>{S.sort=e.target.value;S.shown=50;renderList()};
 $('#more').onclick=()=>{S.shown+=50;renderList()};
 $('#shClose').onclick=closeSheet;$('#sheetBg').onclick=closeSheet;
