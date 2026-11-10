@@ -245,6 +245,12 @@
   "ok": true,
   "osm": "Supermercado Rio Verde, 2629, Rua José de Oliveira Franco, Bairro Alto, Curitiba, Paraná, Região Sul, 82820-090, Brasil"
  },
+ "R. João Bettega, 1930 - Novo Mundo - Curitiba/PR": {
+  "lat": -25.49317,
+  "lon": -49.3237,
+  "ok": false,
+  "osm": "Rua João Bettega, Cidade Industrial de Curitiba, Curitiba, Paraná, Região Sul, 81310-026, Brasil"
+ },
  "R. João Bettega, 2576 - Portão - Curitiba/PR": {
   "lat": -25.48329,
   "lon": -49.31836,
